@@ -1,0 +1,1022 @@
+[
+  {
+    "site": "ilovepdf",
+    "name": "Merge PDF",
+    "description": "Combine PDFs in the order you want with the easiest PDF merger available.",
+    "category": "organize"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Split PDF",
+    "description": "Separate one page or a whole set for easy conversion into independent PDF files.",
+    "category": "organize"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Compress PDF",
+    "description": "Reduce file size while optimizing for maximal PDF quality.",
+    "category": "optimize"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "PDF to Word",
+    "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "PDF to PowerPoint",
+    "description": "Turn your PDF files into easy to edit PPT and PPTX slideshows.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "PDF to Excel",
+    "description": "Pull data straight from PDFs into Excel spreadsheets in a few short seconds.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Word to PDF",
+    "description": "Make DOC and DOCX files easy to read by converting them to PDF.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "PowerPoint to PDF",
+    "description": "Make PPT and PPTX slideshows easy to view by converting them to PDF.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Excel to PDF",
+    "description": "Make EXCEL spreadsheets easy to read by converting them to PDF.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Edit PDF",
+    "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
+    "category": "edit"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "PDF to JPG",
+    "description": "Convert each PDF page into a JPG or extract all images contained in a PDF.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "JPG to PDF",
+    "description": "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Sign PDF",
+    "description": "Sign yourself or request electronic signatures from others.",
+    "category": "security"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Watermark",
+    "description": "Stamp an image or text over your PDF in seconds. Choose the typography, transparency and position.",
+    "category": "edit"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Rotate PDF",
+    "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
+    "category": "edit"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "HTML to PDF",
+    "description": "Convert webpages in HTML to PDF. Copy and paste the URL of the page you want and convert it to PDF with a click.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Unlock PDF",
+    "description": "Remove PDF password security, giving you the freedom to use your PDFs as you want.",
+    "category": "security"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Protect PDF",
+    "description": "Protect PDF files with a password. Encrypt PDF documents to prevent unauthorized access.",
+    "category": "security"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Organize PDF",
+    "description": "Sort pages of your PDF file however you like. Delete PDF pages or add PDF pages to your document at your convenience.",
+    "category": "organize"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "PDF to PDF/A",
+    "description": "Transform your PDF to PDF/A, the ISO-standardized version of PDF for long-term archiving. Your PDF will preserve formatting when accessed in the future.",
+    "category": "convert"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Repair PDF",
+    "description": "Repair a damaged PDF and recover data from corrupt PDF. Fix PDF files with our Repair tool.",
+    "category": "optimize"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Page numbers",
+    "description": "Add page numbers into PDFs with ease. Choose your positions, dimensions, typography.",
+    "category": "edit"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Scan to PDF",
+    "description": "Capture document scans from your mobile device and send them instantly to your browser.",
+    "category": "organize"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "OCR PDF",
+    "description": "Easily convert scanned PDF into searchable and selectable documents.",
+    "category": "optimize"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Compare PDF",
+    "description": "Show a side-by-side document comparison and easily spot changes between different file versions.",
+    "category": "security"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Redact PDF",
+    "description": "Redact text and graphics to permanently remove sensitive information from a PDF.",
+    "category": "security"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Crop PDF",
+    "description": "Crop margins of PDF documents or select specific areas, then apply the changes to one page or the whole document.",
+    "category": "edit"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "PDF Forms",
+    "description": "Detect form fields automatically, create interactive fillable PDFs, or fill PDF forms yourself. Add text fields, checkboxes, multiple choice fields, and lists.",
+    "category": "edit"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "AI Summarizer",
+    "description": "Quickly generate concise summaries from articles, paragraphs, and essays, providing clear and precise key points in seconds.",
+    "category": "intelligence"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Translate PDF",
+    "description": "Easily translate PDF files powered by AI. Keep fonts, layout, and formatting perfectly intact.",
+    "category": "intelligence"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "PDF to Markdown",
+    "description": "Easily turn PDFs into Markdown files. Perfect for notes, docs, and LLMs. Headings, tables, lists, and links preserved automatically.",
+    "category": "intelligence"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Create a workflow",
+    "description": "Create custom workflows with your favorite tools, automate tasks, and reuse them anytime.",
+    "category": "workflows"
+  },
+  {
+    "site": "ilovepdf",
+    "name": "Add a workflow",
+    "description": "1 of 6",
+    "category": "workflows"
+  },
+  {
+    "site": "sejda",
+    "name": "Alternate & Mix",
+    "description": "Mixes pages from 2 or more documents, alternating between them",
+    "category": "cat-merge"
+  },
+  {
+    "site": "sejda",
+    "name": "Merge",
+    "description": "Combine multiple PDFs and images into one",
+    "category": "cat-merge"
+  },
+  {
+    "site": "sejda",
+    "name": "Organize",
+    "description": "Arrange and reorder PDF pages",
+    "category": "cat-merge"
+  },
+  {
+    "site": "sejda",
+    "name": "Extract Pages",
+    "description": "Get a new document containing only the desired pages",
+    "category": "cat-split"
+  },
+  {
+    "site": "sejda",
+    "name": "Split by pages",
+    "description": "Split specific page ranges or extract every page into a separate document",
+    "category": "cat-split"
+  },
+  {
+    "site": "sejda",
+    "name": "Split by bookmarks",
+    "description": "Extract chapters to separate documents based on the bookmarks in the table of contents",
+    "category": "cat-split"
+  },
+  {
+    "site": "sejda",
+    "name": "Split in half",
+    "description": "Split two page layout scans, A3 to double A4 or A4 to double A5",
+    "category": "cat-split"
+  },
+  {
+    "site": "sejda",
+    "name": "Split by size",
+    "description": "Get multiple smaller documents with specific file sizes",
+    "category": "cat-split"
+  },
+  {
+    "site": "sejda",
+    "name": "Split by text",
+    "description": "Extract separate documents when specific text changes from page to page",
+    "category": "cat-split"
+  },
+  {
+    "site": "sejda",
+    "name": "Edit",
+    "description": "Edit PDF files for free. Fill & sign PDF. Add text, links, images and shapes. Edit existing PDF text. Annotate PDF",
+    "category": "cat-edit"
+  },
+  {
+    "site": "sejda",
+    "name": "Fill & Sign",
+    "description": "Add signature to PDF. Fill out PDF forms",
+    "category": "cat-edit"
+  },
+  {
+    "site": "sejda",
+    "name": "Create Forms",
+    "description": "Free PDF forms creator. Make existing PDF documents fillable",
+    "category": "cat-edit"
+  },
+  {
+    "site": "sejda",
+    "name": "Delete Pages",
+    "description": "Remove pages from a PDF document",
+    "category": "cat-edit"
+  },
+  {
+    "site": "sejda",
+    "name": "Compress",
+    "description": "Reduce the size of your PDF",
+    "category": "cat-compress"
+  },
+  {
+    "site": "sejda",
+    "name": "Protect",
+    "description": "Protect file with password and permissions",
+    "category": "cat-security"
+  },
+  {
+    "site": "sejda",
+    "name": "Unlock",
+    "description": "Remove restrictions and password from PDF files",
+    "category": "cat-security"
+  },
+  {
+    "site": "sejda",
+    "name": "Watermark",
+    "description": "Add image or text watermark to PDF documents",
+    "category": "cat-security"
+  },
+  {
+    "site": "sejda",
+    "name": "Flatten",
+    "description": "Makes fillable PDFs read-only. Print & scan in one step",
+    "category": "cat-security"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to Excel",
+    "description": "Convert PDF to Excel or CSV online for free. Extract table data from PDF",
+    "category": "cat-from-pdf"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to JPG",
+    "description": "Get PDF pages converted to JPG, PNG or TIFF images",
+    "category": "cat-from-pdf"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to PowerPoint",
+    "description": "Convert PDF to PowerPoint online",
+    "category": "cat-from-pdf"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to Text",
+    "description": "Copies all text from the PDF document and extracts it to a separate text file",
+    "category": "cat-from-pdf"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to Word",
+    "description": "Convert from PDF to DOC online",
+    "category": "cat-from-pdf"
+  },
+  {
+    "site": "sejda",
+    "name": "HTML to PDF",
+    "description": "Convert web pages or HTML files to PDF documents",
+    "category": "cat-to-pdf"
+  },
+  {
+    "site": "sejda",
+    "name": "JPG to PDF",
+    "description": "Convert Images to PDF",
+    "category": "cat-to-pdf"
+  },
+  {
+    "site": "sejda",
+    "name": "Word to PDF",
+    "description": "Creates a PDF document from Microsoft Word .docx",
+    "category": "cat-to-pdf"
+  },
+  {
+    "site": "sejda",
+    "name": "Bates Numbering",
+    "description": "Bates stamp multiple files at once",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Create Bookmarks",
+    "description": "Create PDF Bookmarks",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Crop",
+    "description": "Trim PDF margins, change PDF page size",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Edit Metadata",
+    "description": "Change PDF Author, Title, Keywords, Subject and other metadata fields",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Extract Images",
+    "description": "Extract images from PDF",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "FlipNew",
+    "description": "Mirror pages horizontally or vertically",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Grayscale",
+    "description": "Make a PDF text and images grayscale",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Header & Footer",
+    "description": "Apply page numbers or text labels to PDF files",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "N-up",
+    "description": "Print multiple pages per sheet per paper. A5 plan as 4-up on A3 or A4 2-up on A3",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Page Numbers",
+    "description": "Add PDF page numbers",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Rename",
+    "description": "Change document filename based on text from the PDF pages",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Repair",
+    "description": "Recover data from a corrupted or damaged PDF document",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Resize",
+    "description": "Add page margins and padding, Change PDF page size",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Rotate",
+    "description": "Rotate and save PDF pages permanently",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Remove annotationsNew",
+    "description": "Batch remove highlights, strikeouts or any other annotations from a PDF document",
+    "category": "cat-other"
+  },
+  {
+    "site": "sejda",
+    "name": "Deskew",
+    "description": "Automatically straighten and deskew scanned PDF pages",
+    "category": "cat-scans"
+  },
+  {
+    "site": "sejda",
+    "name": "OCR",
+    "description": "Convert PDF scans to searchable text and PDFs. Extract text from scans",
+    "category": "cat-scans"
+  },
+  {
+    "site": "sejda",
+    "name": "WorkflowsNew",
+    "description": "Execute series of tasks on PDF documents. Configure tool chains to process PDFs",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF Editor",
+    "description": "Edit PDF files for free. Fill & sign PDF. Add text, links, images and shapes. Edit existing PDF text. Annotate PDF",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Compress",
+    "description": "Reduce the size of your PDF",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Delete Pages",
+    "description": "Remove pages from a PDF document",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Merge",
+    "description": "Combine multiple PDFs and images into one",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Split",
+    "description": "Split specific page ranges or extract every page into a separate document",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Crop",
+    "description": "Trim PDF margins, change PDF page size",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Fill & Sign",
+    "description": "Add signature to PDF. Fill out PDF forms",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to Word",
+    "description": "Convert from PDF to DOC online",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Extract Pages",
+    "description": "Get a new document containing only the desired pages",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Alternate & Mix",
+    "description": "Mixes pages from 2 or more documents, alternating between them",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Organize",
+    "description": "Arrange and reorder PDF pages",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Split by bookmarks",
+    "description": "Extract chapters to separate documents based on the bookmarks in the table of contents",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Split in half",
+    "description": "Split two page layout scans, A3 to double A4 or A4 to double A5",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Split by size",
+    "description": "Get multiple smaller documents with specific file sizes",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Split by text",
+    "description": "Extract separate documents when specific text changes from page to page",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Create Forms",
+    "description": "Free PDF forms creator. Make existing PDF documents fillable",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Deskew",
+    "description": "Automatically straighten and deskew scanned PDF pages",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "OCR",
+    "description": "Convert PDF scans to searchable text and PDFs. Extract text from scans",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Protect",
+    "description": "Protect file with password and permissions",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Unlock",
+    "description": "Remove restrictions and password from PDF files",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Watermark",
+    "description": "Add image or text watermark to PDF documents",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Flatten",
+    "description": "Makes fillable PDFs read-only. Print & scan in one step",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to Excel",
+    "description": "Convert PDF to Excel or CSV online for free. Extract table data from PDF",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to JPG",
+    "description": "Get PDF pages converted to JPG, PNG or TIFF images",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to PPT",
+    "description": "Convert PDF to PowerPoint online",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "PDF to Text",
+    "description": "Copies all text from the PDF document and extracts it to a separate text file",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "HTML to PDF",
+    "description": "Convert web pages or HTML files to PDF documents",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "JPG to PDF",
+    "description": "Convert Images to PDF",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Word to PDF",
+    "description": "Creates a PDF document from Microsoft Word .docx",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Bates Numbering",
+    "description": "Bates stamp multiple files at once",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Create Bookmarks",
+    "description": "Create PDF Bookmarks",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Edit Metadata",
+    "description": "Change PDF Author, Title, Keywords, Subject and other metadata fields",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Extract Images",
+    "description": "Extract images from PDF",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Flip",
+    "description": "Mirror pages horizontally or vertically",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Grayscale",
+    "description": "Make a PDF text and images grayscale",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Header & Footer",
+    "description": "Apply page numbers or text labels to PDF files",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "N-up",
+    "description": "Print multiple pages per sheet per paper. A5 plan as 4-up on A3 or A4 2-up on A3",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Page Numbers",
+    "description": "Add PDF page numbers",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Rename",
+    "description": "Change document filename based on text from the PDF pages",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Repair",
+    "description": "Recover data from a corrupted or damaged PDF document",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Resize",
+    "description": "Add page margins and padding, Change PDF page size",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Rotate",
+    "description": "Rotate and save PDF pages permanently",
+    "category": "uncategorized"
+  },
+  {
+    "site": "sejda",
+    "name": "Remove annotations",
+    "description": "Batch remove highlights, strikeouts or any other annotations from a PDF document",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Edit PDF",
+    "description": "Edit a PDF file online. Add or delete text, highlight sentences, upload images, and use many more PDF editor features.",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Compress PDF",
+    "description": "Reduce file size by compressing your PDF.",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Merge PDF",
+    "description": "Combine PDF files in any order with our PDF merger.",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Split PDF",
+    "description": "Separate PDF pages or split the PDF into a single file per page.",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Organize PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Rotate PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF Page LayoutNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Create Booklet from PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Print PosterNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Sign PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Watermark PDFNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Redact PDFNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF CleanerNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Extract PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Compare PDFsNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Crop PDFNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF Creator",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Share PDFNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Protect PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Change page size",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Unlock PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "OCR PDFAI",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Repair PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Optimize PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Validate PDF/A",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Chat With PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Translate PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Extract facts from PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Spellcheck PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Summarize PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF to Word",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF to JPG",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF to Excel",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF to PowerPoint",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF to TextAI",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF to PDF/A",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF to EPUBNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PDF to SpeechNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Convert from PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Word to PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "JPG to PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Convert to PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Excel to PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "EPUB to PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Image to PDFNew!",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PNG to PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "PowerPoint to PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Speech to TextAI",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "DJVU to PDF",
+    "description": "",
+    "category": "uncategorized"
+  },
+  {
+    "site": "pdf2go",
+    "name": "Webpage to PDFNew!",
+    "description": "",
+    "category": "uncategorized"
+  }
+]
