@@ -1,0 +1,30 @@
+async function postJson<T>(url: string, body: unknown): Promise<T> {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error ?? `Request failed (${res.status}).`);
+  return data as T;
+}
+
+export function summarizeText(text: string) {
+  return postJson<{ summary: string; truncated: boolean }>("/api/summarize", { text });
+}
+
+export function translateText(text: string, targetLanguage: string) {
+  return postJson<{ translation: string; truncated: boolean }>("/api/translate", {
+    text,
+    targetLanguage,
+  });
+}
+
+export interface ChatTurn {
+  role: "user" | "model";
+  text: string;
+}
+
+export function askAboutDocument(documentText: string, history: ChatTurn[]) {
+  return postJson<{ answer: string }>("/api/chat-pdf", { documentText, history });
+}
