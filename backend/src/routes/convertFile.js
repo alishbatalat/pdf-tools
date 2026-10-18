@@ -10,6 +10,16 @@ function extensionOf(filename) {
   return match ? match[1].toLowerCase() : "";
 }
 
+// docx/xlsx/pptx are ZIP archives under the hood (OOXML). Serving them with
+// a generic application/octet-stream Content-Type lets browsers sniff the
+// ZIP signature in the bytes and save the download as a .zip instead of
+// respecting the intended extension — hence the explicit MIME types here.
+const MIME_TYPES = {
+  pdf: "application/pdf",
+  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+};
+
 router.post("/", upload.single("file"), async (req, res) => {
   try {
     const file = req.file;
@@ -23,7 +33,8 @@ router.post("/", upload.single("file"), async (req, res) => {
     }
 
     const result = await convertFile(file.buffer, file.originalname, inputFormat, outputFormat);
-    res.setHeader("Content-Type", "application/octet-stream");
+    const resultExt = extensionOf(result.filename);
+    res.setHeader("Content-Type", MIME_TYPES[resultExt] ?? "application/octet-stream");
     res.setHeader("Content-Disposition", `attachment; filename="${result.filename}"`);
     res.send(result.bytes);
   } catch (err) {
