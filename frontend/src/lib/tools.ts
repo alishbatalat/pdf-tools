@@ -7,15 +7,19 @@ import {
   FileText,
   FileType,
   Globe,
+  Hash,
   Image as ImageIcon,
   Languages,
   ListOrdered,
   type LucideIcon,
   MessageSquareText,
+  Minimize2,
   Presentation,
   RotateCw,
+  ScanText,
   Scissors,
   Sparkles,
+  Stamp,
 } from "lucide-react";
 
 export type ToolCategory = "organize" | "to-pdf" | "from-pdf" | "ai";
@@ -87,6 +91,27 @@ export const tools: Tool[] = [
     href: "/tools/crop-pdf",
   },
   {
+    title: "Compress PDF",
+    description: "Shrink a PDF's file size.",
+    icon: Minimize2,
+    category: "organize",
+    href: "/tools/compress-pdf",
+  },
+  {
+    title: "Add Watermark",
+    description: "Stamp text diagonally across every page.",
+    icon: Stamp,
+    category: "organize",
+    href: "/tools/watermark-pdf",
+  },
+  {
+    title: "Add Page Numbers",
+    description: "Number every page, bottom-centered.",
+    icon: Hash,
+    category: "organize",
+    href: "/tools/page-numbers",
+  },
+  {
     title: "Image to PDF",
     description: "Turn JPG, PNG, or other images into a PDF.",
     icon: ImageIcon,
@@ -148,6 +173,13 @@ export const tools: Tool[] = [
     icon: FileType,
     category: "from-pdf",
     href: "/tools/pdf-to-text",
+  },
+  {
+    title: "OCR PDF",
+    description: "Extract text from a scanned PDF with no text layer.",
+    icon: ScanText,
+    category: "from-pdf",
+    href: "/tools/ocr-pdf",
   },
   {
     title: "Summarize PDF",
