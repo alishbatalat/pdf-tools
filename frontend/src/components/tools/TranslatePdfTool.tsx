@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, Check, Copy, Download, Languages, RotateCcw } from "lucide-react";
 import { extractPdfText } from "@/lib/pdf-text";
 import { translateText } from "@/lib/ai-client";
@@ -117,7 +116,7 @@ export default function TranslatePdfTool() {
 
   if (phase === "done" && translation) {
     return (
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+      <div className="space-y-4">
         <div className="flex items-center gap-2 text-sm font-semibold text-primary">
           <Languages size={16} />
           Translated to {language}
@@ -151,7 +150,7 @@ export default function TranslatePdfTool() {
             Start over
           </button>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
@@ -175,15 +174,13 @@ export default function TranslatePdfTool() {
               </option>
             ))}
           </select>
-          <motion.button
+          <button
             type="button"
             onClick={handleTranslate}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30"
           >
             Translate
-          </motion.button>
+          </button>
         </div>
       </div>
 
@@ -196,3 +193,5 @@ export default function TranslatePdfTool() {
     </div>
   );
 }
+
+

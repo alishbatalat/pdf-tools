@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, Crop } from "lucide-react";
 import { usePdfPages } from "@/hooks/usePdfPages";
 import { cropPages } from "@/lib/pdf-operations";
@@ -143,19 +142,18 @@ export default function CropPdfTool() {
               ))}
             </div>
 
-            <motion.button
+            <button
               type="button"
               disabled={!hasMargins || working}
               onClick={applyCrop}
-              whileHover={hasMargins ? { scale: 1.02 } : {}}
-              whileTap={hasMargins ? { scale: 0.98 } : {}}
               className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {working ? "Cropping…" : "Apply crop"}
-            </motion.button>
+            </button>
           </div>
         </div>
       )}
     </div>
   );
 }
+

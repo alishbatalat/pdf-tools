@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, CheckSquare, Image as ImageIcon } from "lucide-react";
 import { usePdfPages } from "@/hooks/usePdfPages";
 import { pdfPagesToImageBlobs, zipFiles } from "@/lib/pdf-operations";
@@ -109,7 +108,7 @@ export default function PdfToImageTool() {
                   key={f}
                   type="button"
                   onClick={() => setFormat(f)}
-                  className={`rounded-full px-3 py-1.5 transition-colors ${
+                  className={`rounded-full px-3 py-1.5  ${
                     format === f ? "bg-primary text-primary-foreground" : "text-muted"
                   }`}
                 >
@@ -138,12 +137,10 @@ export default function PdfToImageTool() {
             ))}
           </div>
 
-          <motion.button
+          <button
             type="button"
             disabled={working}
             onClick={handleExport}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {working
@@ -151,9 +148,10 @@ export default function PdfToImageTool() {
               : `Export ${selected.size > 0 ? selected.size : pages.length} page${
                   (selected.size > 0 ? selected.size : pages.length) === 1 ? "" : "s"
                 } as ${format.toUpperCase()}`}
-          </motion.button>
+          </button>
         </>
       )}
     </div>
   );
 }
+

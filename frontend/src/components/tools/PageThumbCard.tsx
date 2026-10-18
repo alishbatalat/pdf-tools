@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
 export default function PageThumbCard({
@@ -21,12 +20,10 @@ export default function PageThumbCard({
   overlay?: ReactNode;
 }) {
   return (
-    <motion.button
+    <button
       type="button"
-      layout
       onClick={onClick}
-      whileHover={{ y: -3 }}
-      className={`group relative overflow-hidden rounded-xl border-2 bg-surface p-2 text-left transition-colors ${
+      className={`group relative overflow-hidden rounded-xl border-2 bg-surface p-2 text-left  ${
         selected ? "border-primary ring-2 ring-primary/30" : "border-border hover:border-primary/40"
       }`}
     >
@@ -36,7 +33,7 @@ export default function PageThumbCard({
         <img
           src={thumbnail}
           alt={label}
-          className={`max-h-full max-w-full object-contain transition-all duration-300 ${dimmed ? "opacity-30 grayscale" : ""}`}
+          className={`max-h-full max-w-full object-contain   ${dimmed ? "opacity-30 grayscale" : ""}`}
           style={{ transform: `rotate(${rotateDeg}deg)` }}
         />
       </div>
@@ -46,6 +43,7 @@ export default function PageThumbCard({
           {overlay}
         </div>
       )}
-    </motion.button>
+    </button>
   );
 }
+

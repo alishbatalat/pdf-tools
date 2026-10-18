@@ -43,7 +43,7 @@ export const categoryMeta: Record<ToolCategory, { label: string }> = {
     label: "Convert from PDF",
   },
   ai: {
-    label: "AI Tools",
+    label: "Document content",
   },
 };
 
@@ -169,7 +169,7 @@ export const tools: Tool[] = [
   },
   {
     title: "PDF to Text",
-    description: "Extract raw text content from any PDF.",
+    description: "Extract selectable text from a PDF.",
     icon: FileType,
     category: "from-pdf",
     href: "/tools/pdf-to-text",
@@ -197,7 +197,7 @@ export const tools: Tool[] = [
   },
   {
     title: "Translate PDF",
-    description: "Translate a PDF's content while keeping its layout.",
+    description: "Translate extracted PDF text into another language.",
     icon: Languages,
     category: "ai",
     href: "/tools/translate-pdf",
@@ -206,3 +206,4 @@ export const tools: Tool[] = [
 
 export const toolsByCategory = (category: ToolCategory) =>
   tools.filter((tool) => tool.category === category);
+

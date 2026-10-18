@@ -1,3 +1,4 @@
+import { toolGuidance } from "@/lib/tool-guidance";
 import Link from "next/link";
 import { ArrowLeft, type LucideIcon } from "lucide-react";
 import { categoryMeta, toolsByCategory, type ToolCategory } from "@/lib/tools";
@@ -15,14 +16,15 @@ export default function ToolPageShell({
   category: ToolCategory;
   children: React.ReactNode;
 }) {
+  const guidance = toolGuidance(title, category);
   const meta = categoryMeta[category];
   const related = toolsByCategory(category).filter((t) => t.title !== title);
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
+    <div className="tool-workspace mx-auto max-w-4xl px-6 py-8">
       <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-foreground"
+        href={`/tools?category=${category}`}
+        className="inline-flex items-center gap-1.5 text-sm text-muted  hover:text-foreground"
       >
         <ArrowLeft size={14} />
         All tools
@@ -43,10 +45,11 @@ export default function ToolPageShell({
         </div>
       </div>
 
-      <div className="mt-10">{children}</div>
+      <aside className="tool-guidance" aria-label="Before you begin"><div><span>{guidance.processing}</span><span>{guidance.formats}</span></div><p>{guidance.note}</p>{!guidance.browser && <p>Your file or extracted text is sent to the configured document server. <Link href="/privacy">Processing details</Link></p>}</aside>
+      <div className="tool-body">{children}</div>
 
       {related.length > 0 && (
-        <div className="mt-16 border-t border-border pt-8">
+        <div className="related-tools">
           <h2 className="text-sm font-semibold text-muted">
             More in {meta.label}
           </h2>
@@ -55,7 +58,7 @@ export default function ToolPageShell({
               <Link
                 key={tool.href}
                 href={tool.href}
-                className="rounded-full border border-border bg-surface px-4 py-2 text-sm text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                className="rounded-full border border-border bg-surface px-4 py-2 text-sm text-foreground  hover:border-primary/40 hover:text-primary"
               >
                 {tool.title}
               </Link>
@@ -66,3 +69,6 @@ export default function ToolPageShell({
     </div>
   );
 }
+
+
+

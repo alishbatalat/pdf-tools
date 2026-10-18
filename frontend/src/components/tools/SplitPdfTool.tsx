@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, CheckSquare, Scissors, Square } from "lucide-react";
 import { usePdfPages } from "@/hooks/usePdfPages";
 import { extractPages, splitEveryPage, zipFiles } from "@/lib/pdf-operations";
@@ -116,12 +115,10 @@ export default function SplitPdfTool() {
 
       {status === "ready" && (
         <>
-          <motion.button
+          <button
             type="button"
             disabled={working !== null}
             onClick={handleSplitEvery}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Scissors size={16} />
@@ -130,7 +127,8 @@ export default function SplitPdfTool() {
               : pages.length === 1
                 ? "Split into 1 file"
                 : `Split into ${pages.length} separate files (.zip)`}
-          </motion.button>
+          </button>
+
 
           <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-border" />
@@ -168,7 +166,7 @@ export default function SplitPdfTool() {
                       <CheckSquare size={12} />
                     </span>
                   ) : (
-                    <span className="absolute left-2 top-2 flex h-5 w-5 items-center justify-center rounded bg-background/70 text-muted opacity-0 transition-opacity group-hover:opacity-100">
+                    <span className="absolute left-2 top-2 flex h-5 w-5 items-center justify-center rounded bg-background/70 text-muted opacity-0  group-hover:opacity-100">
                       <Square size={12} />
                     </span>
                   )
@@ -177,20 +175,20 @@ export default function SplitPdfTool() {
             ))}
           </div>
 
-          <motion.button
+          <button
             type="button"
             disabled={selected.size === 0 || working !== null}
             onClick={handleExtractSelected}
-            whileHover={selected.size > 0 ? { scale: 1.02 } : {}}
-            whileTap={selected.size > 0 ? { scale: 0.98 } : {}}
             className="flex w-full items-center justify-center gap-2 rounded-full border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             {working === "selected"
               ? "Extracting…"
               : `Extract selected pages into one PDF`}
-          </motion.button>
+          </button>
         </>
       )}
     </div>
   );
 }
+
+

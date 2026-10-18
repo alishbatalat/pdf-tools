@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, Check, Copy, Download, FileType, RotateCcw } from "lucide-react";
 import { extractPdfText } from "@/lib/pdf-text";
 import PdfDropzone from "./PdfDropzone";
@@ -68,7 +67,7 @@ export default function PdfToTextTool() {
       )}
 
       {text !== null && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+        <div className="space-y-4">
           <textarea
             readOnly
             value={text}
@@ -76,26 +75,22 @@ export default function PdfToTextTool() {
             className="w-full resize-y rounded-2xl border border-border bg-surface p-4 font-mono text-xs text-foreground"
           />
           <div className="flex flex-wrap gap-3">
-            <motion.button
+            <button
               type="button"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
               onClick={downloadText}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30"
             >
               <Download size={15} />
               Download .txt
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               type="button"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
               onClick={copyText}
               className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-foreground"
             >
               {copied ? <Check size={15} className="text-secondary" /> : <Copy size={15} />}
               {copied ? "Copied" : "Copy to clipboard"}
-            </motion.button>
+            </button>
             <button
               type="button"
               onClick={reset}
@@ -105,7 +100,7 @@ export default function PdfToTextTool() {
               Start over
             </button>
           </div>
-        </motion.div>
+        </div>
       )}
 
       {working && !text && (
@@ -116,3 +111,5 @@ export default function PdfToTextTool() {
     </div>
   );
 }
+
+

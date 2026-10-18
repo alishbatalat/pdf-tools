@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, ChevronLeft, ChevronRight, ListOrdered } from "lucide-react";
 import { usePdfPages, type PdfPageThumb } from "@/hooks/usePdfPages";
 import { reorderPages } from "@/lib/pdf-operations";
@@ -122,18 +121,17 @@ export default function ReorderPdfTool() {
             ))}
           </div>
 
-          <motion.button
+          <button
             type="button"
             disabled={!isDirty || working}
             onClick={applyReorder}
-            whileHover={isDirty ? { scale: 1.02 } : {}}
-            whileTap={isDirty ? { scale: 0.98 } : {}}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {working ? "Saving…" : "Save new order"}
-          </motion.button>
+          </button>
         </>
       )}
     </div>
   );
 }
+

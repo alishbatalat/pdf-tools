@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, MessageSquareText, Send } from "lucide-react";
 import { extractPdfText } from "@/lib/pdf-text";
 import { askAboutDocument, type ChatTurn } from "@/lib/ai-client";
@@ -18,7 +17,7 @@ export default function ChatWithPdfTool() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "instant" });
   }, [history, asking]);
 
   async function handleFile(selected: File) {
@@ -95,12 +94,10 @@ export default function ChatWithPdfTool() {
         {history.length === 0 && (
           <p className="text-sm text-muted">Ask anything about this document to get started.</p>
         )}
-        <AnimatePresence initial={false}>
+        <>
           {history.map((turn, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
               className={`flex ${turn.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
@@ -112,20 +109,13 @@ export default function ChatWithPdfTool() {
               >
                 {turn.text}
               </div>
-            </motion.div>
+            </div>
           ))}
-        </AnimatePresence>
+        </>
         {asking && (
           <div className="flex justify-start">
             <div className="flex items-center gap-1 rounded-2xl bg-surface-muted px-4 py-3">
-              {[0, 1, 2].map((i) => (
-                <motion.span
-                  key={i}
-                  className="h-1.5 w-1.5 rounded-full bg-muted"
-                  animate={{ opacity: [0.3, 1, 0.3] }}
-                  transition={{ repeat: Infinity, duration: 1, delay: i * 0.15 }}
-                />
-              ))}
+              <span role="status" className="text-sm text-muted">Preparing an answer…</span>
             </div>
           </div>
         )}
@@ -151,17 +141,17 @@ export default function ChatWithPdfTool() {
           placeholder="Ask a question about this document&hellip;"
           className="flex-1 rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground"
         />
-        <motion.button
+        <button
           type="button"
           disabled={!input.trim() || asking}
           onClick={sendQuestion}
-          whileHover={input.trim() ? { scale: 1.05 } : {}}
-          whileTap={input.trim() ? { scale: 0.95 } : {}}
           className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
         >
           <Send size={16} />
-        </motion.button>
+        </button>
       </div>
     </div>
   );
 }
+
+

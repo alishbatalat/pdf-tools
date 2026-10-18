@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, FileMinus, Trash2 } from "lucide-react";
 import { usePdfPages } from "@/hooks/usePdfPages";
 import { deletePages } from "@/lib/pdf-operations";
@@ -112,12 +111,10 @@ export default function DeletePagesTool() {
             ))}
           </div>
 
-          <motion.button
+          <button
             type="button"
             disabled={selected.size === 0 || working}
             onClick={applyDelete}
-            whileHover={selected.size > 0 ? { scale: 1.02 } : {}}
-            whileTap={selected.size > 0 ? { scale: 0.98 } : {}}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {working
@@ -125,9 +122,10 @@ export default function DeletePagesTool() {
               : selected.size === 0
                 ? "Select pages to remove"
                 : `Remove ${selected.size} page${selected.size === 1 ? "" : "s"}`}
-          </motion.button>
+          </button>
         </>
       )}
     </div>
   );
 }
+

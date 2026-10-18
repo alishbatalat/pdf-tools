@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, Globe } from "lucide-react";
 import { convertWebpageRemote } from "@/lib/convert-client";
 import ResultPanel from "./ResultPanel";
@@ -65,16 +64,14 @@ export default function WebpageToPdfTool() {
             placeholder="https://example.com/article"
             className="flex-1 rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground"
           />
-          <motion.button
+          <button
             type="button"
             disabled={!url.trim() || working}
             onClick={handleConvert}
-            whileHover={url.trim() ? { scale: 1.02 } : {}}
-            whileTap={url.trim() ? { scale: 0.98 } : {}}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {working ? "Converting…" : "Save as PDF"}
-          </motion.button>
+          </button>
         </div>
       </div>
 
@@ -87,3 +84,4 @@ export default function WebpageToPdfTool() {
     </div>
   );
 }
+

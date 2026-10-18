@@ -1,18 +1,17 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertCircle,
   ChevronDown,
   ChevronUp,
-  Download,
   FileStack,
-  RotateCcw,
   UploadCloud,
   X,
 } from "lucide-react";
 import { useId, useRef, useState } from "react";
 import { mergePdfFiles } from "@/lib/merge-pdf";
+
+import ResultPanel from "./ResultPanel";
 
 interface QueuedFile {
   id: string;
@@ -91,43 +90,7 @@ export default function MergePdfTool() {
   return (
     <div className="space-y-6">
       {status === "done" && resultUrl ? (
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-surface p-10 text-center"
-        >
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-soft text-secondary">
-            <FileStack size={26} />
-          </span>
-          <div>
-            <h2 className="text-lg font-semibold">
-              Merged {queue.length} files into one PDF
-            </h2>
-            <p className="mt-1 text-sm text-muted">
-              Nothing was uploaded anywhere &mdash; this happened entirely in your browser.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <motion.a
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              href={resultUrl}
-              download="merged.pdf"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30"
-            >
-              <Download size={16} />
-              Download merged.pdf
-            </motion.a>
-            <button
-              type="button"
-              onClick={reset}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground"
-            >
-              <RotateCcw size={15} />
-              Start over
-            </button>
-          </div>
-        </motion.div>
+        <ResultPanel icon={FileStack} title={`Merged ${queue.length} files into one PDF`} subtitle="Processed in your browser." downloadHref={resultUrl} downloadName="merged.pdf" onReset={reset} />
       ) : (
         <>
           <label
@@ -142,7 +105,7 @@ export default function MergePdfTool() {
               setDragOver(false);
               addFiles(e.dataTransfer.files);
             }}
-            className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed px-6 py-14 text-center transition-colors ${
+            className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed px-6 py-14 text-center  ${
               dragOver
                 ? "border-primary bg-primary-soft"
                 : "border-border bg-surface hover:border-primary/40"
@@ -173,28 +136,21 @@ export default function MergePdfTool() {
           </label>
 
           {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div
               className="flex items-start gap-2 rounded-xl border border-accent/30 bg-accent-soft px-4 py-3 text-sm text-accent-foreground"
             >
               <AlertCircle size={16} className="mt-0.5 shrink-0 text-accent" />
               <span>{error}</span>
-            </motion.div>
+            </div>
           )}
 
           {queue.length > 0 && (
             <div className="rounded-2xl border border-border bg-surface p-3">
               <ul className="space-y-2">
-                <AnimatePresence initial={false}>
+                <>
                   {queue.map((item, index) => (
-                    <motion.li
+                    <li
                       key={item.id}
-                      layout
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       className="flex items-center gap-3 rounded-xl border border-border bg-background px-3 py-2.5"
                     >
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-xs font-semibold text-primary">
@@ -214,7 +170,7 @@ export default function MergePdfTool() {
                           aria-label="Move up"
                           disabled={index === 0}
                           onClick={() => moveFile(index, -1)}
-                          className="flex h-7 w-7 items-center justify-center rounded-lg text-muted transition-colors hover:bg-surface-muted hover:text-foreground disabled:opacity-30"
+                          className="flex h-7 w-7 items-center justify-center rounded-lg text-muted  hover:bg-surface-muted hover:text-foreground disabled:opacity-30"
                         >
                           <ChevronUp size={15} />
                         </button>
@@ -223,7 +179,7 @@ export default function MergePdfTool() {
                           aria-label="Move down"
                           disabled={index === queue.length - 1}
                           onClick={() => moveFile(index, 1)}
-                          className="flex h-7 w-7 items-center justify-center rounded-lg text-muted transition-colors hover:bg-surface-muted hover:text-foreground disabled:opacity-30"
+                          className="flex h-7 w-7 items-center justify-center rounded-lg text-muted  hover:bg-surface-muted hover:text-foreground disabled:opacity-30"
                         >
                           <ChevronDown size={15} />
                         </button>
@@ -231,32 +187,28 @@ export default function MergePdfTool() {
                           type="button"
                           aria-label="Remove file"
                           onClick={() => removeFile(item.id)}
-                          className="flex h-7 w-7 items-center justify-center rounded-lg text-muted transition-colors hover:bg-accent-soft hover:text-accent"
+                          className="flex h-7 w-7 items-center justify-center rounded-lg text-muted  hover:bg-accent-soft hover:text-accent"
                         >
                           <X size={15} />
                         </button>
                       </div>
-                    </motion.li>
+                    </li>
                   ))}
-                </AnimatePresence>
+                </>
               </ul>
             </div>
           )}
 
-          <motion.button
+          <button
             type="button"
             disabled={!canMerge}
             onClick={handleMerge}
-            whileHover={canMerge ? { scale: 1.02 } : {}}
-            whileTap={canMerge ? { scale: 0.98 } : {}}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30  disabled:cursor-not-allowed disabled:opacity-40"
           >
             {status === "merging" ? (
               <>
-                <motion.span
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-                  className="h-4 w-4 rounded-full border-2 border-primary-foreground/30 border-t-primary-foreground"
+                <span
+                  className="hidden"
                 />
                 Merging&hellip;
               </>
@@ -268,9 +220,12 @@ export default function MergePdfTool() {
                   : `Merge ${queue.length} PDFs`}
               </>
             )}
-          </motion.button>
+          </button>
         </>
       )}
     </div>
   );
 }
+
+
+

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { AlertCircle, Check, Copy, Download, RotateCcw, Sparkles } from "lucide-react";
 import { extractPdfText } from "@/lib/pdf-text";
 import { summarizeText } from "@/lib/ai-client";
@@ -83,7 +82,7 @@ export default function SummarizePdfTool() {
   }
 
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+    <div className="space-y-4">
       <div className="flex items-center gap-2 text-sm font-semibold text-primary">
         <Sparkles size={16} />
         Summary
@@ -117,6 +116,8 @@ export default function SummarizePdfTool() {
           Start over
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }
+
+

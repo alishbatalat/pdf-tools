@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertCircle,
   ChevronDown,
@@ -114,7 +113,7 @@ export default function ImageToPdfTool() {
           setDragOver(false);
           addFiles(e.dataTransfer.files);
         }}
-        className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed px-6 py-14 text-center transition-colors ${
+        className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed px-6 py-14 text-center  ${
           dragOver ? "border-primary bg-primary-soft" : "border-border bg-surface hover:border-primary/40"
         }`}
       >
@@ -151,14 +150,10 @@ export default function ImageToPdfTool() {
 
       {queue.length > 0 && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          <AnimatePresence initial={false}>
+          <>
             {queue.map((item, index) => (
-              <motion.div
+              <div
                 key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
                 className="relative overflow-hidden rounded-xl border border-border bg-surface p-2"
               >
                 <span className="absolute left-3 top-3 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-background/90 text-xs font-semibold text-foreground shadow">
@@ -203,18 +198,16 @@ export default function ImageToPdfTool() {
                     <X size={13} />
                   </button>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
+          </>
         </div>
       )}
 
-      <motion.button
+      <button
         type="button"
         disabled={queue.length === 0 || working}
         onClick={handleConvert}
-        whileHover={queue.length > 0 ? { scale: 1.02 } : {}}
-        whileTap={queue.length > 0 ? { scale: 0.98 } : {}}
         className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
       >
         {working
@@ -222,7 +215,8 @@ export default function ImageToPdfTool() {
           : queue.length === 0
             ? "Add images to convert"
             : `Convert ${queue.length} image${queue.length === 1 ? "" : "s"} to PDF`}
-      </motion.button>
+      </button>
     </div>
   );
 }
+
