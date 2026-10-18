@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, CheckSquare, Scissors, Square } from "lucide-react";
 import { usePdfPages } from "@/hooks/usePdfPages";
-import { extractPages, splitEveryPage } from "@/lib/pdf-operations";
+import { extractPages, splitEveryPage, zipFiles } from "@/lib/pdf-operations";
 import PdfDropzone from "./PdfDropzone";
 import PageThumbCard from "./PageThumbCard";
 import ResultPanel from "./ResultPanel";
@@ -37,10 +37,18 @@ export default function SplitPdfTool() {
     setWorking("all");
     setError(null);
     try {
-      const blob = await splitEveryPage(file);
-      const url = URL.createObjectURL(blob);
-      resultUrlRef.current = url;
-      setResult({ url, name: "pages.zip", label: `Split into ${pages.length} files` });
+      const files = await splitEveryPage(file);
+      if (files.length === 1) {
+        const blob = new Blob([new Uint8Array(files[0].data)], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        resultUrlRef.current = url;
+        setResult({ url, name: files[0].name, label: "Split into 1 file" });
+      } else {
+        const zip = await zipFiles(files);
+        const url = URL.createObjectURL(zip);
+        resultUrlRef.current = url;
+        setResult({ url, name: "pages.zip", label: `Split into ${files.length} files` });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Couldn't split this PDF.");
     } finally {
@@ -119,7 +127,9 @@ export default function SplitPdfTool() {
             <Scissors size={16} />
             {working === "all"
               ? "Splitting…"
-              : `Split into ${pages.length} separate files (.zip)`}
+              : pages.length === 1
+                ? "Split into 1 file"
+                : `Split into ${pages.length} separate files (.zip)`}
           </motion.button>
 
           <div className="flex items-center gap-3">

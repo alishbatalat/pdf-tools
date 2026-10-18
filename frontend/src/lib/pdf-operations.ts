@@ -18,11 +18,13 @@ function toBlob(bytes: Uint8Array): Blob {
 export async function zipFiles(named: Array<{ name: string; data: Blob | Uint8Array }>): Promise<Blob> {
   const zip = new JSZip();
   for (const { name, data } of named) zip.file(name, data);
-  return zip.generateAsync({ type: "blob" });
+  return zip.generateAsync({ type: "blob", mimeType: "application/zip" });
 }
 
-/** One PDF per page, bundled as a zip. */
-export async function splitEveryPage(file: File): Promise<Blob> {
+/** One PDF per page. Caller decides whether to zip (not needed for a single page). */
+export async function splitEveryPage(
+  file: File,
+): Promise<Array<{ name: string; data: Uint8Array }>> {
   const src = await loadPdfLibDoc(file);
   const count = src.getPageCount();
   const files: Array<{ name: string; data: Uint8Array }> = [];
@@ -34,7 +36,7 @@ export async function splitEveryPage(file: File): Promise<Blob> {
     files.push({ name: `page-${String(i + 1).padStart(2, "0")}.pdf`, data: await doc.save() });
   }
 
-  return zipFiles(files);
+  return files;
 }
 
 /** Extract the given 0-based page indices into a single new PDF. */
