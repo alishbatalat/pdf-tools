@@ -49,7 +49,7 @@ export default function OfficeToPdfTool({
       <ResultPanel
         icon={FileOutput}
         title="Converted to PDF"
-        subtitle="Converted via CloudConvert."
+        subtitle="Converted locally by the self-hosted backend."
         downloadHref={resultUrl}
         downloadName={resultName}
         onReset={reset}

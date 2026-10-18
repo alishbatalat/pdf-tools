@@ -42,7 +42,7 @@ export default function WebpageToPdfTool() {
       <ResultPanel
         icon={Globe}
         title="Webpage saved as PDF"
-        subtitle="Converted via CloudConvert."
+        subtitle="Converted locally by the self-hosted backend."
         downloadHref={resultUrl}
         downloadName="webpage.pdf"
         onReset={reset}

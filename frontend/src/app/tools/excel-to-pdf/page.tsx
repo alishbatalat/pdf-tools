@@ -17,9 +17,9 @@ export default function ExcelToPdfPage() {
       category="to-pdf"
     >
       <OfficeToPdfTool
-        accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         title="Drop a spreadsheet here, or click to browse"
-        hint="XLS or XLSX files."
+        hint="XLSX files. (Legacy .xls isn't supported — save as .xlsx first.)"
       />
     </ToolPageShell>
   );

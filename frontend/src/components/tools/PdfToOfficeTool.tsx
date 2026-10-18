@@ -47,7 +47,7 @@ export default function PdfToOfficeTool({
       <ResultPanel
         icon={FileOutput}
         title={resultLabel}
-        subtitle="Converted via CloudConvert."
+        subtitle="Converted locally by the self-hosted backend."
         downloadHref={resultUrl}
         downloadName={resultName}
         onReset={reset}

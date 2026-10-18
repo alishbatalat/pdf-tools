@@ -76,7 +76,7 @@ export default function SummarizePdfTool() {
       <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-border bg-surface px-6 py-14 text-center">
         <span className="h-8 w-8 animate-spin rounded-full border-2 border-primary/30 border-t-primary" />
         <p className="text-sm text-muted">
-          {phase === "reading" ? "Reading document…" : "Summarizing with Gemini…"}
+          {phase === "reading" ? "Reading document…" : "Summarizing…"}
         </p>
       </div>
     );

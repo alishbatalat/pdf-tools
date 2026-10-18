@@ -17,9 +17,9 @@ export default function PptToPdfPage() {
       category="to-pdf"
     >
       <OfficeToPdfTool
-        accept=".ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        accept=".pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation"
         title="Drop a slideshow here, or click to browse"
-        hint="PPT or PPTX files."
+        hint="PPTX files, text only — shapes/images aren't carried over. (Legacy .ppt isn't supported — save as .pptx first.)"
       />
     </ToolPageShell>
   );

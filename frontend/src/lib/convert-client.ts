@@ -1,3 +1,5 @@
+import { BACKEND_URL } from "./backend-url";
+
 async function readError(res: Response): Promise<string> {
   try {
     const body = await res.json();
@@ -12,13 +14,13 @@ export async function convertFileRemote(file: File, outputFormat: string): Promi
   formData.append("file", file);
   formData.append("outputFormat", outputFormat);
 
-  const res = await fetch("/api/convert-file", { method: "POST", body: formData });
+  const res = await fetch(`${BACKEND_URL}/api/convert-file`, { method: "POST", body: formData });
   if (!res.ok) throw new Error(await readError(res));
   return res.blob();
 }
 
 export async function convertWebpageRemote(url: string): Promise<Blob> {
-  const res = await fetch("/api/convert-webpage", {
+  const res = await fetch(`${BACKEND_URL}/api/convert-webpage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ url }),
