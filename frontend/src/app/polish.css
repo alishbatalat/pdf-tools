@@ -1,0 +1,56 @@
+/* Finishing details shared by the overview, directory and document tools. */
+:root{--background:#f6f8fb;--surface:#ffffff;--surface-muted:#edf1f7;--border:#dce3ed;--foreground:#202b3d;--muted:#606f85;--primary:#2d60cf;--primary-soft:#eaf0fd}
+:root[data-theme=dark]{--background:#10151e;--surface:#19212e;--surface-muted:#212d3d;--border:#303e52;--foreground:#eaf0fa;--muted:#a8b7cd;--primary:#9bbaff;--primary-soft:#263958}
+.site-header{background:var(--surface);border-bottom:1px solid var(--border)}
+.site-nav{max-width:1200px;padding-block:16px;min-height:76px}
+.brand{font-weight:650;letter-spacing:-.7px}.brand-mark{border-radius:9px}
+.desktop-links{gap:6px}.desktop-links a{padding:9px 18px;border-radius:6px;font-size:13px}
+.desktop-links a[aria-current=page]{background:var(--primary-soft);color:var(--primary)}
+.theme-toggle{width:38px;height:38px;border-radius:8px}.mobile-toggle{width:38px;height:38px;display:none;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:8px}
+.workspace-intro.workspace-intro-centered{padding:58px 24px 40px;min-height:0}
+.workspace-intro-centered .workspace-heading{max-width:760px}
+.workspace-intro-centered .section-kicker{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.8px;color:var(--primary);border-bottom:2px solid var(--primary);padding-bottom:8px}
+.workspace-intro-centered .workspace-heading h1{font-size:clamp(38px,4.7vw,62px);line-height:1.08;letter-spacing:-2.5px;font-weight:650;margin:22px 0 20px}
+.workspace-intro-centered .workspace-heading>p:not(.section-kicker){font-size:16px;line-height:1.8;max-width:540px;color:var(--muted)}
+.primary-button{border:1px solid transparent;border-radius:7px;min-height:46px;padding:12px 22px;gap:18px;font-size:14px;font-weight:600;box-shadow:0 2px 4px #0000000c}
+.workspace-heading .primary-button{margin-top:25px}.intro-note{font-size:12px;line-height:1.7;margin-top:14px;color:var(--muted)}
+.workflow-section{padding-bottom:30px}.section-heading{margin-bottom:18px}.section-heading h2{font-size:19px;font-weight:600}.section-heading>a{font-size:13px;gap:9px}
+.workflow-grid{gap:16px;border:0;border-radius:0;background:transparent;overflow:visible}
+.workflow-item,.workflow-item:last-child{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:25px;box-shadow:0 2px 5px #00000004}
+.workflow-item h3{font-size:16px;margin-top:21px;font-weight:600;letter-spacing:-.2px}
+.workflow-item p{font-size:13px;line-height:1.8;max-width:270px;min-height:47px}.workflow-item>svg{margin-top:19px;color:var(--muted)}
+.workflow-item>div>span:not(.category-icon){font-size:10px;letter-spacing:1px;color:var(--muted)}
+.usage-section{margin-bottom:30px;padding-block:23px}.usage-section h2{font-size:13px}.usage-section strong{font-size:13px}.usage-section p{font-size:12px;line-height:1.7}.usage-section li>span{background:var(--surface);width:28px;height:28px;flex-shrink:0}
+.full-directory .directory-heading h1{font-size:34px;font-weight:600}.directory-description{font-size:15px}.tool-search{border-radius:8px;min-height:46px;width:290px}.tool-search input{font-size:14px}.tool-search:focus-within{outline:2px solid var(--primary);outline-offset:2px}
+.full-directory .tool-card{border-radius:9px;min-height:125px;align-content:center}.full-directory .tool-card h3{font-size:15px;font-weight:600}.full-directory .tool-card p{font-size:13px;line-height:1.7}.directory-toolbar{padding-bottom:18px}.full-directory .tool-filters button{border-radius:6px;min-height:40px}.tool-filters button.selected{font-weight:650}.directory-note{font-size:12px}
+.tool-workspace .tool-guidance{border-radius:8px}.upload-area{border-radius:8px}.upload-area:focus-within{outline:2px solid var(--primary)}
+.footer-inner{padding-block:28px}.footer-inner .brand{font-size:20px}.footer-links{gap:24px;font-size:13px}.footer-bottom{padding-block:17px;font-size:11px}
+.sign-in-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--foreground);font-size:13px;font-weight:600;padding:9px 15px;cursor:pointer}
+.account-menu{position:relative}
+.account-trigger{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface-muted);padding:0;cursor:pointer;overflow:hidden}
+.account-avatar{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.account-avatar-fallback{font-size:14px;font-weight:650;color:var(--primary)}
+.account-menu-skeleton{display:inline-block;width:36px;height:36px;border-radius:50%;background:var(--surface-muted)}
+.account-dropdown{position:absolute;right:0;top:calc(100% + 8px);width:230px;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px #00000014;padding:8px;z-index:60;display:flex;flex-direction:column;gap:2px}
+.account-dropdown-info{padding:8px 10px 10px;border-bottom:1px solid var(--border);margin-bottom:4px}
+.account-dropdown-info strong{display:block;font-size:13px}
+.account-dropdown-info span{display:block;font-size:11px;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+.account-dropdown a,.account-dropdown button{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:6px;font-size:13px;color:var(--foreground);background:transparent;border:0;text-align:left;cursor:pointer;width:100%}
+@media(hover:hover) and (pointer:fine){.account-dropdown a:hover,.account-dropdown button:hover{background:var(--surface-muted)}.sign-in-button:hover{background:var(--surface-muted)}}
+@media(hover:hover) and (pointer:fine){.workflow-item:hover{border-color:var(--icon-ink);background:var(--surface)}.desktop-links a:hover{background:var(--surface-muted)}.tool-card:hover{border-color:var(--primary)}.primary-button:hover{filter:brightness(.95)}}
+@media(max-width:700px){.site-nav{padding:14px 22px;min-height:68px}.mobile-toggle{display:flex}.workspace-intro.workspace-intro-centered{padding:38px 22px 30px}.workspace-intro-centered .workspace-heading h1{font-size:40px;letter-spacing:-1.6px}.workspace-intro-centered .workspace-heading>p:not(.section-kicker){font-size:14px}.workflow-grid{gap:12px}.workflow-item,.workflow-item:last-child{padding:20px;grid-template-columns:48px 1fr 18px}.workflow-item h3{margin:0 0 6px;font-size:15px}.workflow-item p{min-height:0;font-size:13px}.workflow-item>svg{margin:0}.section-heading h2{font-size:16px}.section-heading>a{font-size:12px}.usage-section{padding-block:21px}.usage-section ol{gap:20px}.tool-search{width:100%}.full-directory .directory-heading h1{font-size:29px}.footer-links{gap:18px}.mobile-links a{padding:8px 0}}
+
+.auth-form{padding-top:10px}
+.auth-form h1{font-size:28px;font-weight:650;letter-spacing:-0.6px}
+.auth-google-button{width:100%;margin-top:22px;padding:12px;font-size:14px}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted);font-size:12px}
+.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border)}
+.auth-fields{display:flex;flex-direction:column;gap:16px}
+.auth-fields label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--foreground)}
+.auth-fields input{font:inherit;font-weight:400;padding:11px 13px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--foreground)}
+.auth-fields input:focus-visible{outline:2px solid var(--primary);outline-offset:1px}
+.auth-fields small{font-weight:400;color:var(--muted);font-size:11px}
+.auth-submit{width:100%;margin-top:4px;justify-content:center}
+.auth-toggle{margin-top:20px;font-size:13px;color:var(--muted)}
+.auth-toggle button{background:none;border:0;padding:0;color:var(--primary);font-weight:600;cursor:pointer;font-size:13px}
+@media(hover:hover) and (pointer:fine){.auth-toggle button:hover{text-decoration:underline}}

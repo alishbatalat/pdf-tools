@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AuthSessionProvider from "@/components/AuthSessionProvider";
 import "./globals.css";
+import "./tool-icons.css";
+import "./polish.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +32,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem("foldero-theme");document.documentElement.dataset.theme=t==="light"||t==="dark"?t:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){document.documentElement.dataset.theme=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}})()` }} />
-        <Navbar />
-        {children}
-        <Footer />
+        <AuthSessionProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </AuthSessionProvider>
       </body>
     </html>
   );
 }
+
+
 
 

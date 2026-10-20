@@ -1,0 +1,14 @@
+/* Shared category accents and compact, outlined icon tiles. */
+.tool-category-organize,.workflow-icon-01{--icon-ink:#315dc1;--icon-fill:#edf2fe;--icon-line:#d5e0fa}
+.tool-category-to-pdf,.workflow-icon-02{--icon-ink:#207769;--icon-fill:#e9f5f0;--icon-line:#cbe6dd}
+.tool-category-from-pdf{--icon-ink:#a36b23;--icon-fill:#fcf3e6;--icon-line:#f0dfc2}
+.tool-category-ai,.workflow-icon-03{--icon-ink:#7753ad;--icon-fill:#f2edfa;--icon-line:#e0d5f2}
+:root[data-theme=dark] .tool-category-organize,:root[data-theme=dark] .workflow-icon-01{--icon-ink:#9ab9ff;--icon-fill:#202e48;--icon-line:#34486b}
+:root[data-theme=dark] .tool-category-to-pdf,:root[data-theme=dark] .workflow-icon-02{--icon-ink:#85d5bf;--icon-fill:#1c3532;--icon-line:#30534b}
+:root[data-theme=dark] .tool-category-from-pdf{--icon-ink:#e4be83;--icon-fill:#382e21;--icon-line:#58452f}
+:root[data-theme=dark] .tool-category-ai,:root[data-theme=dark] .workflow-icon-03{--icon-ink:#c4a6ee;--icon-fill:#30273e;--icon-line:#4e3e66}
+.full-directory .tool-card{grid-template-columns:48px 1fr;column-gap:16px}
+.tool-card .tool-icon,.workflow-item .category-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;border-radius:12px;border:1px solid var(--icon-line);background:var(--icon-fill);color:var(--icon-ink);box-shadow:inset 0 1px 0 #ffffff14}
+.tool-card .tool-icon svg,.workflow-item .category-icon svg{display:block;color:inherit}
+.workflow-item>div>.category-icon{font-family:inherit;font-size:inherit}
+@media(max-width:700px){.workflow-item{grid-template-columns:48px 1fr 18px}.workflow-item>div>.category-icon{display:flex}.workflow-item>div>span:not(.category-icon){display:none}}

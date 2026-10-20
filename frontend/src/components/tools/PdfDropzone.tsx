@@ -1,7 +1,7 @@
 "use client";
 import { UploadCloud, FileText, ArrowRight, X } from "lucide-react";
 import { useId, useState } from "react";
-export default function PdfDropzone({ onFile, title = "Choose a PDF or drop it here", hint = "PDF files", accept = "application/pdf,.pdf" }: { onFile: (file: File) => void; title?: string; hint?: string; accept?: string }) {
+export default function PdfDropzone({ onFile, title = "Choose a PDF or drop it here", hint = "PDF files", accept = "application/pdf,.pdf", maxSizeMB }: { onFile: (file: File) => void; title?: string; hint?: string; accept?: string; maxSizeMB?: number }) {
   const [dragOver, setDragOver] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState("");
@@ -14,6 +14,11 @@ export default function PdfDropzone({ onFile, title = "Choose a PDF or drop it h
     if (list.length > 1) { setError("Choose one file at a time."); return; }
     if (!valid) { setError(`Unsupported file format. ${hint}`); return; }
     if (!candidate.size) { setError("This file is empty. Choose another file."); return; }
+    if (maxSizeMB && candidate.size > maxSizeMB * 1024 * 1024) {
+      const actual = (candidate.size / (1024 * 1024)).toFixed(1);
+      setError(`This file is ${actual}MB — the limit here is ${maxSizeMB}MB.`);
+      return;
+    }
     setError(""); setFile(candidate);
   }
   async function continueWithFile() {

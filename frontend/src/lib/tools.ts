@@ -215,3 +215,5 @@ export const tools: Tool[] = [
 export const toolsByCategory = (category: ToolCategory) =>
   tools.filter((tool) => tool.category === category);
 
+export const getToolByHref = (href: string) => tools.find((tool) => tool.href === href);
+

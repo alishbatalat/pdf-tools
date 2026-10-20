@@ -3,15 +3,9 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, Minimize2 } from "lucide-react";
-import { compressPdf, type CompressPreset } from "@/lib/pdf-operations";
+import { compressPdf } from "@/lib/pdf-operations";
 import PdfDropzone from "./PdfDropzone";
 import ResultPanel from "./ResultPanel";
-
-const PRESETS: { value: CompressPreset; label: string; hint: string }[] = [
-  { value: "high", label: "High compression", hint: "Smallest file, lower image quality" },
-  { value: "balanced", label: "Balanced", hint: "Good trade-off for most documents" },
-  { value: "low", label: "Light compression", hint: "Best quality, smaller size reduction" },
-];
 
 function formatSize(bytes: number): string {
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
@@ -20,10 +14,9 @@ function formatSize(bytes: number): string {
 
 export default function CompressPdfTool() {
   const [file, setFile] = useState<File | null>(null);
-  const [preset, setPreset] = useState<CompressPreset>("balanced");
   const [working, setWorking] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<{ url: string; size: number } | null>(null);
+  const [result, setResult] = useState<{ url: string; size: number; kept: boolean } | null>(null);
   const resultUrlRef = useRef<string | null>(null);
 
   async function handleCompress() {
@@ -31,10 +24,22 @@ export default function CompressPdfTool() {
     setWorking(true);
     setError(null);
     try {
-      const blob = await compressPdf(file, preset);
-      const url = URL.createObjectURL(blob);
+      // Always starts at "balanced" and, if that doesn't shrink the file,
+      // automatically retries at "high" (the most aggressive setting) before
+      // giving up — no preset choice exposed, the tool just does its best.
+      let blob = await compressPdf(file, "balanced");
+      if (blob.size >= file.size) {
+        blob = await compressPdf(file, "high");
+      }
+
+      // Rasterizing a page can still land bigger than the original for
+      // small, text-only PDFs (clean vector text is already compact). Don't
+      // hand back a "compressed" file that's actually worse — keep the
+      // original in that case.
+      const kept = blob.size >= file.size;
+      const url = URL.createObjectURL(kept ? file : blob);
       resultUrlRef.current = url;
-      setResult({ url, size: blob.size });
+      setResult({ url, size: kept ? file.size : blob.size, kept });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Couldn't compress this PDF.");
     } finally {
@@ -55,21 +60,28 @@ export default function CompressPdfTool() {
     return (
       <ResultPanel
         icon={Minimize2}
-        title="PDF compressed"
+        title={result.kept ? "Already as small as it gets" : "PDF compressed"}
         subtitle={
-          reduction > 0
-            ? `${formatSize(file.size)} → ${formatSize(result.size)} (${reduction}% smaller). Pages are now images — text is no longer selectable.`
-            : `${formatSize(file.size)} → ${formatSize(result.size)}. This file didn't shrink further at this setting — try "High compression."`
+          result.kept
+            ? `This document is mostly text, which is already compact — turning its pages into images would make it bigger, not smaller, at every setting. Your original file is unchanged.`
+            : `${formatSize(file.size)} → ${formatSize(result.size)} (${reduction}% smaller). Pages are now images — text is no longer selectable.`
         }
         downloadHref={result.url}
-        downloadName="compressed.pdf"
+        downloadName={result.kept ? file.name : "compressed.pdf"}
         onReset={reset}
       />
     );
   }
 
   if (!file) {
-    return <PdfDropzone onFile={setFile} title="Drop a PDF here, or click to browse" />;
+    return (
+      <PdfDropzone
+        onFile={setFile}
+        title="Drop a PDF here, or click to browse"
+        hint="PDF files up to 25MB"
+        maxSizeMB={25}
+      />
+    );
   }
 
   return (
@@ -86,24 +98,6 @@ export default function CompressPdfTool() {
             have selectable/searchable text — best for documents you just need smaller, not ones
             you'll edit or search later.
           </span>
-        </div>
-
-        <div className="mt-4 space-y-2">
-          {PRESETS.map((p) => (
-            <button
-              key={p.value}
-              type="button"
-              onClick={() => setPreset(p.value)}
-              className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
-                preset === p.value
-                  ? "border-primary bg-primary-soft text-primary"
-                  : "border-border bg-background text-foreground"
-              }`}
-            >
-              <span className="font-medium">{p.label}</span>
-              <span className="text-xs text-muted">{p.hint}</span>
-            </button>
-          ))}
         </div>
       </div>
 

@@ -192,10 +192,13 @@ export async function addPageNumbers(file: File, fontSize = 10): Promise<Blob> {
 
 export type CompressPreset = "high" | "balanced" | "low";
 
+// scale 1.0 = 72 DPI-equivalent — too low to keep rasterized text legible, it
+// just looks pixelated regardless of JPEG quality. 1.5 (108 DPI) is the floor
+// where text stays readable; JPEG quality is what actually drives file size.
 const COMPRESS_SETTINGS: Record<CompressPreset, { scale: number; quality: number }> = {
-  high: { scale: 1.0, quality: 0.5 }, // smallest file, lowest quality
-  balanced: { scale: 1.5, quality: 0.7 },
-  low: { scale: 2.0, quality: 0.85 }, // largest file, best quality
+  high: { scale: 1.5, quality: 0.45 }, // smallest file, text still legible
+  balanced: { scale: 2.0, quality: 0.65 },
+  low: { scale: 2.5, quality: 0.8 }, // largest file, best quality
 };
 
 /**
