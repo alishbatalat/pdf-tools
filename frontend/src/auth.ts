@@ -3,8 +3,10 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { authenticateUser } from "@/lib/users-db";
 
-// Google sign-in is optional: every tool works for signed-out visitors, so
-// don't register (and crash) the provider until real credentials exist.
+// Google sign-in is optional: don't register (and crash) the provider until
+// real credentials exist. (The button is currently hidden in the UI either
+// way — see SHOW_GOOGLE_SIGNIN in AuthForm.tsx — but the provider stays
+// wired up so it can be switched back on without touching this file.)
 const googleConfigured = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -36,5 +38,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   pages: {
     signIn: "/auth/signin",
+    error: "/auth/signin",
   },
 });

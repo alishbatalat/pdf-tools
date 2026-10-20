@@ -1,18 +1,41 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { AlertCircle } from "lucide-react";
+import GoogleIcon from "./GoogleIcon";
+
+const AUTH_ERROR_MESSAGES: Record<string, string> = {
+  OAuthAccountNotLinked:
+    "That email already has a password-based account here. Sign in with your email and password instead, or use a different Google account.",
+  AccessDenied: "That sign-in was cancelled or denied.",
+  Configuration: "Sign-in isn't set up correctly on this site yet.",
+  CredentialsSignin: "Incorrect email or password.",
+  Verification: "That sign-in link is no longer valid.",
+};
+
+function readableAuthError(code: string): string {
+  return AUTH_ERROR_MESSAGES[code] ?? "Something went wrong signing in. Please try again.";
+}
+
+const SHOW_GOOGLE_SIGNIN = true;
 
 export default function AuthForm({ googleConfigured }: { googleConfigured: boolean }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [working, setWorking] = useState(false);
+
+  useEffect(() => {
+    const code = searchParams.get("error");
+    if (code) setError(readableAuthError(code));
+  }, [searchParams]);
 
   async function handleSignIn(e: React.FormEvent) {
     e.preventDefault();
@@ -24,7 +47,7 @@ export default function AuthForm({ googleConfigured }: { googleConfigured: boole
       setError("Incorrect email or password.");
       return;
     }
-    router.push("/");
+    router.push(callbackUrl);
     router.refresh();
   }
 
@@ -51,7 +74,7 @@ export default function AuthForm({ googleConfigured }: { googleConfigured: boole
         setMode("signin");
         return;
       }
-      router.push("/");
+      router.push(callbackUrl);
       router.refresh();
     } catch {
       setError("Couldn't create your account. Try again.");
@@ -68,13 +91,14 @@ export default function AuthForm({ googleConfigured }: { googleConfigured: boole
           : "Takes a few seconds — just an email and a password."}
       </p>
 
-      {googleConfigured && (
+      {SHOW_GOOGLE_SIGNIN && googleConfigured && (
         <>
           <button
             type="button"
             className="sign-in-button auth-google-button"
             onClick={() => signIn("google", { callbackUrl: "/" })}
           >
+            <GoogleIcon size={18} />
             Continue with Google
           </button>
           <div className="auth-divider">

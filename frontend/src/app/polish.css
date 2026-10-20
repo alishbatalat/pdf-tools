@@ -42,7 +42,7 @@
 
 .auth-form{padding-top:10px}
 .auth-form h1{font-size:28px;font-weight:650;letter-spacing:-0.6px}
-.auth-google-button{width:100%;margin-top:22px;padding:12px;font-size:14px}
+.auth-google-button{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:22px;padding:12px;font-size:14px}
 .auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted);font-size:12px}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border)}
 .auth-fields{display:flex;flex-direction:column;gap:16px}
