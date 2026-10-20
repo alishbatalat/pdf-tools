@@ -14,6 +14,7 @@ import {
   type LucideIcon,
   MessageSquareText,
   Minimize2,
+  PenSquare,
   Presentation,
   RotateCw,
   ScanText,
@@ -110,6 +111,13 @@ export const tools: Tool[] = [
     icon: Hash,
     category: "organize",
     href: "/tools/page-numbers",
+  },
+  {
+    title: "Editor PDF",
+    description: "Add text, images, and shapes anywhere on a page.",
+    icon: PenSquare,
+    category: "organize",
+    href: "/tools/editor-pdf",
   },
   {
     title: "Image to PDF",

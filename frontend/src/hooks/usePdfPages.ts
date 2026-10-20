@@ -10,7 +10,7 @@ export interface PdfPageThumb {
   height: number;
 }
 
-export function usePdfPages(file: File | null) {
+export function usePdfPages(file: File | null, scale = 0.4) {
   const [pages, setPages] = useState<PdfPageThumb[]>([]);
   const [status, setStatus] = useState<"idle" | "loading" | "ready" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +37,7 @@ export function usePdfPages(file: File | null) {
         for (let i = 1; i <= pdf.numPages; i++) {
           if (cancelled) return;
           const page = await pdf.getPage(i);
-          const viewport = page.getViewport({ scale: 0.4 });
+          const viewport = page.getViewport({ scale });
           const canvas = document.createElement("canvas");
           canvas.width = viewport.width;
           canvas.height = viewport.height;
@@ -69,7 +69,7 @@ export function usePdfPages(file: File | null) {
     return () => {
       cancelled = true;
     };
-  }, [file]);
+  }, [file, scale]);
 
   return { pages, status, error };
 }
