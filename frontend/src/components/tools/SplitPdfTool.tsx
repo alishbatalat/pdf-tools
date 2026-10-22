@@ -126,7 +126,7 @@ export default function SplitPdfTool() {
               ? "Splitting…"
               : pages.length === 1
                 ? "Split into 1 file"
-                : `Split into ${pages.length} separate files (.zip)`}
+                : `Split into ${pages.length} separate files`}
           </button>
 
 

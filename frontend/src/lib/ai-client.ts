@@ -1,11 +1,18 @@
 import { BACKEND_URL } from "./backend-url";
 
 async function postJson<T>(url: string, body: unknown): Promise<T> {
-  const res = await fetch(`${BACKEND_URL}${url}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${BACKEND_URL}${url}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch {
+    throw new Error(
+      "Couldn't reach the document server. It may be starting up or isn't running — try again in a moment.",
+    );
+  }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error ?? `Request failed (${res.status}).`);
   return data as T;

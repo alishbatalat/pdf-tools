@@ -20,7 +20,6 @@ import {
   ScanText,
   Scissors,
   Sparkles,
-  Stamp,
 } from "lucide-react";
 
 export type ToolCategory = "organize" | "to-pdf" | "from-pdf" | "ai";
@@ -97,13 +96,6 @@ export const tools: Tool[] = [
     icon: Minimize2,
     category: "organize",
     href: "/tools/compress-pdf",
-  },
-  {
-    title: "Add Watermark",
-    description: "Stamp text diagonally across every page.",
-    icon: Stamp,
-    category: "organize",
-    href: "/tools/watermark-pdf",
   },
   {
     title: "Add Page Numbers",

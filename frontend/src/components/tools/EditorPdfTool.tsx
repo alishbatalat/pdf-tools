@@ -37,13 +37,20 @@ function makeId() {
   return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-function loadImageDimensions(dataUrl: string): Promise<{ width: number; height: number }> {
+function loadImageElement(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () => resolve({ width: img.naturalWidth || 1, height: img.naturalHeight || 1 });
+    img.onload = () => resolve(img);
     img.onerror = () => reject(new Error("Couldn't read that image."));
-    img.src = dataUrl;
+    img.src = src;
   });
+}
+
+function loadImageDimensions(dataUrl: string): Promise<{ width: number; height: number }> {
+  return loadImageElement(dataUrl).then((img) => ({
+    width: img.naturalWidth || 1,
+    height: img.naturalHeight || 1,
+  }));
 }
 
 export default function EditorPdfTool() {
@@ -204,18 +211,41 @@ export default function EditorPdfTool() {
   }
 
   async function onImagePicked(picked: File) {
+    // Detect the real format from the file's magic bytes rather than trusting
+    // picked.type — browsers can report an empty or unreliable MIME type (e.g.
+    // for drag-and-drop or re-named files), which previously defaulted to
+    // "jpeg" for anything that wasn't exactly "image/png" and made pdf-lib
+    // throw "SOI not found in JPEG" when embedding non-JPEG bytes as a JPEG.
+    // Only PNG and JPEG are accepted — other formats (WebP, HEIC, GIF, BMP,
+    // etc.) are rejected outright, even if the filename ends in ".jpg".
+    const header = new Uint8Array(await picked.slice(0, 8).arrayBuffer());
+    const isPng =
+      header[0] === 0x89 && header[1] === 0x50 && header[2] === 0x4e && header[3] === 0x47;
+    const isJpeg = header[0] === 0xff && header[1] === 0xd8 && header[2] === 0xff;
+
+    if (!isPng && !isJpeg) {
+      setError(
+        "Only PNG and JPEG images are supported. That file isn't actually a PNG or JPEG (even if it's named .jpg) — try converting it first.",
+      );
+      return;
+    }
+
+    const format: ImageEditorElement["format"] = isPng ? "png" : "jpeg";
+    const mime = isPng ? "image/png" : "image/jpeg";
     const reader = new FileReader();
-    const dataUrl: string = await new Promise((resolve, reject) => {
+    const rawDataUrl: string = await new Promise((resolve, reject) => {
       reader.onload = () => resolve(reader.result as string);
       reader.onerror = () => reject(new Error("Couldn't read that image."));
       reader.readAsDataURL(picked);
     });
+    const dataUrl = rawDataUrl.replace(/^data:[^;]+/, `data:${mime}`);
+
     const { width, height } = await loadImageDimensions(dataUrl);
     const wPct = 35;
     const hPct = pageWidthPt && pageHeightPt
       ? ((wPct / 100) * pageWidthPt * (height / width) / pageHeightPt) * 100
       : wPct;
-    const format: ImageEditorElement["format"] = picked.type === "image/png" ? "png" : "jpeg";
+    setError(null);
     addElement({
       id: makeId(),
       pageIndex: activePageIndex,

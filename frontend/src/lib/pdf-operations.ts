@@ -77,18 +77,35 @@ export async function reorderPages(file: File, newOrder: number[]): Promise<Blob
   return toBlob(await doc.save());
 }
 
-/** Shrinks each page's visible area by the given point margins (does not re-flow content). */
+/**
+ * Scales down a pair of opposing margins (top/bottom or left/right) only if their
+ * combined total would eat more than the page dimension, so a large margin on one
+ * side alone (with the opposite side at 0) can still crop nearly the whole page —
+ * instead of each side being capped independently at half the dimension.
+ */
+export function clampMarginPair(a: number, b: number, dimension: number, minVisible = 2): [number, number] {
+  const sum = a + b;
+  if (sum <= dimension - minVisible || sum <= 0) return [a, b];
+  const scale = (dimension - minVisible) / sum;
+  return [a * scale, b * scale];
+}
+
+/**
+ * Shrinks each page's visible area by the given point margins (does not re-flow content).
+ * By default every page is cropped; pass `pageIndices` (0-based) to crop only those pages.
+ */
 export async function cropPages(
   file: File,
   margins: { top: number; bottom: number; left: number; right: number },
+  pageIndices?: number[],
 ): Promise<Blob> {
   const doc = await loadPdfLibDoc(file);
-  doc.getPages().forEach((page) => {
+  const targets = pageIndices ? new Set(pageIndices) : null;
+  doc.getPages().forEach((page, i) => {
+    if (targets && !targets.has(i)) return;
     const { width, height } = page.getSize();
-    const left = Math.min(margins.left, width / 2 - 1);
-    const right = Math.min(margins.right, width / 2 - 1);
-    const top = Math.min(margins.top, height / 2 - 1);
-    const bottom = Math.min(margins.bottom, height / 2 - 1);
+    const [left, right] = clampMarginPair(margins.left, margins.right, width);
+    const [top, bottom] = clampMarginPair(margins.top, margins.bottom, height);
     page.setCropBox(left, bottom, width - left - right, height - top - bottom);
   });
   return toBlob(await doc.save());
@@ -141,32 +158,6 @@ export async function pdfPagesToImageBlobs(
   }
 
   return results;
-}
-
-export async function addWatermark(
-  file: File,
-  text: string,
-  options: { opacity?: number; fontSize?: number; rotationDeg?: number } = {},
-): Promise<Blob> {
-  const doc = await loadPdfLibDoc(file);
-  const font = await doc.embedFont(StandardFonts.HelveticaBold);
-  const { opacity = 0.25, fontSize = 48, rotationDeg = 45 } = options;
-
-  doc.getPages().forEach((page) => {
-    const { width, height } = page.getSize();
-    const textWidth = font.widthOfTextAtSize(text, fontSize);
-    page.drawText(text, {
-      x: width / 2 - textWidth / 2,
-      y: height / 2,
-      size: fontSize,
-      font,
-      color: rgb(0, 0, 0),
-      opacity,
-      rotate: degrees(rotationDeg),
-    });
-  });
-
-  return toBlob(await doc.save());
 }
 
 export async function addPageNumbers(file: File, fontSize = 10): Promise<Blob> {

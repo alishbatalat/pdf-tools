@@ -154,6 +154,44 @@ export async function translateTextLocal(rawText, targetLanguage) {
   return { translation: translated.join("\n\n"), truncated };
 }
 
+const ENUMERATION_QUESTION_RE = /\b(types?|kinds?|categories|category|list|examples?|ways|methods?)\b/i;
+
+// The QA pipeline's `answer` is just decoded token text — it doesn't come
+// with character offsets into the original chunk, so we have to find it
+// ourselves. The tokenizer's decode() usually reconstructs an exact
+// substring of the source text; fall back to a case-insensitive search for
+// the rare cases where casing/whitespace drifted during decoding.
+function findAnswerSpan(chunk, answer) {
+  if (!answer) return null;
+  const idx = chunk.indexOf(answer);
+  if (idx !== -1) return { start: idx, end: idx + answer.length };
+  const idxLoose = chunk.toLowerCase().indexOf(answer.trim().toLowerCase());
+  if (idxLoose !== -1) return { start: idxLoose, end: idxLoose + answer.trim().length };
+  return null;
+}
+
+// distilbert's QA head returns the shortest literal span that answers the
+// question (e.g. "Public" for "types of encryption?") — technically correct
+// but unreadable on its own. Expanding it to its full containing sentence
+// gives a much more useful answer without needing a generative model.
+function expandToSentence(context, start, end) {
+  if (typeof start !== "number" || typeof end !== "number") return null;
+  const before = context.slice(0, start);
+  const after = context.slice(end);
+  const boundary = Math.max(
+    before.lastIndexOf(". "),
+    before.lastIndexOf(".\n"),
+    before.lastIndexOf("! "),
+    before.lastIndexOf("? "),
+    before.lastIndexOf("\n\n"),
+  );
+  const from = boundary === -1 ? 0 : boundary + 2;
+  const afterBoundary = after.search(/[.!?](\s|$)/);
+  const to = afterBoundary === -1 ? context.length : end + afterBoundary + 1;
+  const sentence = context.slice(from, to).trim();
+  return sentence.length > 0 ? sentence : null;
+}
+
 export async function chatAboutDocumentLocal(documentText, history) {
   const { text } = clampText(documentText, 20_000);
   const question = history[history.length - 1]?.text ?? "";
@@ -183,15 +221,28 @@ export async function chatAboutDocumentLocal(documentText, history) {
   const candidates = ranked.slice(0, 5).map((r) => r.chunk);
   const qa = await getChatModel();
   let best = null;
+  let bestChunk = null;
   for (const chunk of candidates) {
     const result = await qa(question, chunk);
-    if (!best || result.score > best.score) best = result;
+    if (!best || result.score > best.score) {
+      best = result;
+      bestChunk = chunk;
+    }
   }
 
   if (!best || best.score < MIN_CONFIDENT_SCORE) {
     return { answer: "I couldn't find an answer to that in this document." };
   }
-  return { answer: best.answer };
+
+  // "Types of X" / "list the ..." questions usually span several sentences —
+  // the whole matched paragraph reads better than one extracted sentence.
+  if (ENUMERATION_QUESTION_RE.test(question)) {
+    return { answer: bestChunk.trim() };
+  }
+
+  const span = findAnswerSpan(bestChunk, best.answer);
+  const sentence = span ? expandToSentence(bestChunk, span.start, span.end) : null;
+  return { answer: sentence ?? best.answer };
 }
 
 export const supportedTranslationLanguages = Object.keys(NLLB_LANG_CODES);
