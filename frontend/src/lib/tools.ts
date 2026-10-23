@@ -2,6 +2,7 @@ import {
   Crop,
   FileMinus,
   FileOutput,
+  FileSignature,
   FileSpreadsheet,
   FileStack,
   FileText,
@@ -110,6 +111,13 @@ export const tools: Tool[] = [
     icon: PenSquare,
     category: "organize",
     href: "/tools/editor-pdf",
+  },
+  {
+    title: "Sign PDF",
+    description: "Draw, upload, or photograph a signature and place it on your document.",
+    icon: FileSignature,
+    category: "organize",
+    href: "/tools/sign-pdf",
   },
   {
     title: "Image to PDF",

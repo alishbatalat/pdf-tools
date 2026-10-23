@@ -9,15 +9,24 @@ export type EditorElementBase = {
   yPct: number;
   wPct: number;
   hPct: number;
+  /** 0 (invisible) to 1 (fully opaque). Defaults to 1 wherever omitted. */
+  opacity?: number;
 };
+
+export type TextFontFamily = "sans-serif" | "serif" | "monospace";
 
 export type TextEditorElement = EditorElementBase & {
   type: "text";
   text: string;
   fontSize: number; // points
-  color: string; // #rrggbb
+  fontFamily: TextFontFamily;
+  color: string; // #rrggbb — fill/text color
   bold: boolean;
   italic: boolean;
+  underline: boolean;
+  strikethrough: boolean;
+  /** Outline drawn around the text box, in the given color — null means no border. */
+  borderColor: string | null;
   /** When set, a filled rectangle is drawn behind the text to mask whatever was there before (used to "edit" existing PDF text, which can't be modified in place). */
   coverColor: string | null;
 };
@@ -26,6 +35,8 @@ export type ImageEditorElement = EditorElementBase & {
   type: "image";
   dataUrl: string;
   format: "png" | "jpeg";
+  /** Signatures (drawn/uploaded/captured via the Sign PDF tool) are tagged so the UI can treat them distinctly from ordinary inserted images. */
+  isSignature?: boolean;
 };
 
 export type ShapeEditorElement = EditorElementBase & {
@@ -45,11 +56,33 @@ function hexToRgb(hex: string) {
   return rgb(r, g, b);
 }
 
-function fontForStyle(bold: boolean, italic: boolean) {
-  if (bold && italic) return StandardFonts.HelveticaBoldOblique;
-  if (bold) return StandardFonts.HelveticaBold;
-  if (italic) return StandardFonts.HelveticaOblique;
-  return StandardFonts.Helvetica;
+const FONT_FAMILIES: Record<TextFontFamily, { regular: StandardFonts; bold: StandardFonts; italic: StandardFonts; boldItalic: StandardFonts }> = {
+  "sans-serif": {
+    regular: StandardFonts.Helvetica,
+    bold: StandardFonts.HelveticaBold,
+    italic: StandardFonts.HelveticaOblique,
+    boldItalic: StandardFonts.HelveticaBoldOblique,
+  },
+  serif: {
+    regular: StandardFonts.TimesRoman,
+    bold: StandardFonts.TimesRomanBold,
+    italic: StandardFonts.TimesRomanItalic,
+    boldItalic: StandardFonts.TimesRomanBoldItalic,
+  },
+  monospace: {
+    regular: StandardFonts.Courier,
+    bold: StandardFonts.CourierBold,
+    italic: StandardFonts.CourierOblique,
+    boldItalic: StandardFonts.CourierBoldOblique,
+  },
+};
+
+function fontForStyle(family: TextFontFamily, bold: boolean, italic: boolean) {
+  const set = FONT_FAMILIES[family] ?? FONT_FAMILIES["sans-serif"];
+  if (bold && italic) return set.boldItalic;
+  if (bold) return set.bold;
+  if (italic) return set.italic;
+  return set.regular;
 }
 
 /** Loads the original PDF and draws every element directly onto its page, then returns the flattened result. */
@@ -76,11 +109,13 @@ export async function applyPdfEdits(file: File, elements: EditorElement[]): Prom
     const h = (el.hPct / 100) * pageHeight;
     const y = pageHeight - (el.yPct / 100) * pageHeight - h; // flip to bottom-left origin
 
+    const opacity = el.opacity ?? 1;
+
     if (el.type === "text") {
       if (el.coverColor) {
         page.drawRectangle({ x, y, width: w, height: h, color: hexToRgb(el.coverColor) });
       }
-      const fontKey = fontForStyle(el.bold, el.italic);
+      const fontKey = fontForStyle(el.fontFamily, el.bold, el.italic);
       let font = fontCache.get(fontKey);
       if (!font) {
         font = await doc.embedFont(fontKey);
@@ -89,8 +124,32 @@ export async function applyPdfEdits(file: File, elements: EditorElement[]): Prom
       const lineHeight = el.fontSize * 1.25;
       let cursorY = y + h - el.fontSize;
       for (const line of el.text.split("\n")) {
-        page.drawText(line, { x, y: cursorY, size: el.fontSize, font, color: hexToRgb(el.color) });
+        page.drawText(line, { x, y: cursorY, size: el.fontSize, font, color: hexToRgb(el.color), opacity });
+        const textWidth = font.widthOfTextAtSize(line, el.fontSize);
+        if (el.underline) {
+          const underlineY = cursorY - el.fontSize * 0.12;
+          page.drawLine({
+            start: { x, y: underlineY },
+            end: { x: x + textWidth, y: underlineY },
+            thickness: Math.max(0.75, el.fontSize * 0.05),
+            color: hexToRgb(el.color),
+            opacity,
+          });
+        }
+        if (el.strikethrough) {
+          const strikeY = cursorY + el.fontSize * 0.32;
+          page.drawLine({
+            start: { x, y: strikeY },
+            end: { x: x + textWidth, y: strikeY },
+            thickness: Math.max(0.75, el.fontSize * 0.05),
+            color: hexToRgb(el.color),
+            opacity,
+          });
+        }
         cursorY -= lineHeight;
+      }
+      if (el.borderColor) {
+        page.drawRectangle({ x, y, width: w, height: h, borderColor: hexToRgb(el.borderColor), borderWidth: 1, opacity });
       }
     } else if (el.type === "image") {
       let image = imageCache.get(el.dataUrl);
@@ -99,7 +158,7 @@ export async function applyPdfEdits(file: File, elements: EditorElement[]): Prom
         image = el.format === "png" ? await doc.embedPng(imgBytes) : await doc.embedJpg(imgBytes);
         imageCache.set(el.dataUrl, image);
       }
-      page.drawImage(image, { x, y, width: w, height: h });
+      page.drawImage(image, { x, y, width: w, height: h, opacity });
     } else if (el.type === "rect") {
       page.drawRectangle({
         x,
@@ -109,6 +168,7 @@ export async function applyPdfEdits(file: File, elements: EditorElement[]): Prom
         borderColor: hexToRgb(el.color),
         borderWidth: el.strokeWidth,
         color: el.fillColor ? hexToRgb(el.fillColor) : undefined,
+        opacity,
       });
     } else {
       page.drawLine({
@@ -116,6 +176,7 @@ export async function applyPdfEdits(file: File, elements: EditorElement[]): Prom
         end: { x: x + w, y: y + h / 2 },
         thickness: el.strokeWidth,
         color: hexToRgb(el.color),
+        opacity,
       });
     }
   }

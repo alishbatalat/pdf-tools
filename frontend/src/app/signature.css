@@ -1,0 +1,21 @@
+.signature-dialog{position:fixed;inset:0;margin:auto;width:min(680px,94vw);max-width:94vw;padding:0;border:1px solid var(--border);border-radius:10px;color:var(--foreground);background:var(--surface);overflow:hidden;box-shadow:0 20px 70px #0006}
+.signature-dialog::backdrop{background:#080e1bd6}
+.signature-dialog-shell{display:flex;flex-direction:column;max-height:90dvh}
+.signature-dialog header{display:flex;align-items:center;justify-content:space-between;padding:17px 21px;border-bottom:1px solid var(--border)}
+.signature-dialog h2{font-size:15px;font-weight:600}
+.signature-dialog header button{display:flex;align-items:center;justify-content:center;min-height:32px;min-width:32px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--foreground)}
+.signature-tabs{display:flex;gap:6px;padding:14px 21px 0}
+.signature-tabs button{display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--muted)}
+.signature-tabs button.is-active{background:var(--primary-soft);color:var(--primary);border-color:var(--primary)}
+.signature-dialog-shell>div:not(.signature-tabs):not(.signature-page-context){padding:16px 21px}
+.signature-canvas{width:100%;height:220px;border:2px dashed var(--border);border-radius:10px;background:#fff;touch-action:none;cursor:crosshair}
+.signature-secondary-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid var(--border);border-radius:6px;background:var(--surface);font-size:12.5px;font-weight:600;color:var(--foreground)}
+.signature-camera-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center}
+.signature-camera-video{width:100%;height:100%;object-fit:cover}
+.signature-page-context{display:flex;align-items:center;gap:10px;padding:13px 21px;border-top:1px solid var(--border);background:var(--surface-muted)}
+.signature-page-context>p{font-size:11px;color:var(--muted);flex-shrink:0}
+.signature-page-context>span{font-size:11px;color:var(--muted)}
+.signature-page-preview{width:34px;height:44px;flex-shrink:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+.signature-page-preview img{width:100%;height:100%;object-fit:contain}
+.signature-page-preview-empty{font-size:8px;color:var(--muted);text-align:center}
+@media(max-width:600px){.signature-dialog{width:96vw}.signature-dialog header,.signature-tabs,.signature-dialog-shell>div:not(.signature-tabs):not(.signature-page-context){padding-left:14px;padding-right:14px}}
