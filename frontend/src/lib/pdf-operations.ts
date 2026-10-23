@@ -186,7 +186,7 @@ export type CompressPreset = "high" | "balanced" | "low";
 // scale 1.0 = 72 DPI-equivalent — too low to keep rasterized text legible, it
 // just looks pixelated regardless of JPEG quality. 1.5 (108 DPI) is the floor
 // where text stays readable; JPEG quality is what actually drives file size.
-const COMPRESS_SETTINGS: Record<CompressPreset, { scale: number; quality: number }> = {
+export const COMPRESS_SETTINGS: Record<CompressPreset, { scale: number; quality: number }> = {
   high: { scale: 1.5, quality: 0.45 }, // smallest file, text still legible
   balanced: { scale: 2.0, quality: 0.65 },
   low: { scale: 2.5, quality: 0.8 }, // largest file, best quality
@@ -197,11 +197,14 @@ const COMPRESS_SETTINGS: Record<CompressPreset, { scale: number; quality: number
  * the PDF from those images. This reliably shrinks file size, but the
  * result is an image of each page — selectable text is lost.
  */
-export async function compressPdf(file: File, preset: CompressPreset = "balanced"): Promise<Blob> {
+export async function compressPdf(
+  file: File,
+  settings: CompressPreset | { scale: number; quality: number } = "balanced",
+): Promise<Blob> {
   const pdfjsLib = await getPdfjs();
   const buf = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
-  const { scale, quality } = COMPRESS_SETTINGS[preset];
+  const { scale, quality } = typeof settings === "string" ? COMPRESS_SETTINGS[settings] : settings;
 
   const out = await PDFDocument.create();
 

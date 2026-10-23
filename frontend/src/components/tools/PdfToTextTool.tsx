@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { AlertCircle, Check, Copy, Download, FileType, RotateCcw } from "lucide-react";
+import { AlertCircle, Check, Copy, Download, RotateCcw } from "lucide-react";
 import { extractPdfText } from "@/lib/pdf-text";
 import PdfDropzone from "./PdfDropzone";
+import ProgressBar from "./ProgressBar";
 
 export default function PdfToTextTool() {
   const [file, setFile] = useState<File | null>(null);
@@ -57,7 +58,7 @@ export default function PdfToTextTool() {
 
   return (
     <div className="space-y-6">
-      {working && <p className="text-sm text-muted">Extracting text&hellip;</p>}
+      {working && <ProgressBar label="Extracting text…" />}
 
       {error && (
         <div className="flex items-start gap-2 rounded-xl border border-accent/30 bg-accent-soft px-4 py-3 text-sm">
@@ -100,12 +101,6 @@ export default function PdfToTextTool() {
               Start over
             </button>
           </div>
-        </div>
-      )}
-
-      {working && !text && (
-        <div className="flex items-center gap-2 text-muted">
-          <FileType size={16} />
         </div>
       )}
     </div>

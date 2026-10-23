@@ -1,3 +1,4 @@
+import ButtonTooltips from "@/components/ButtonTooltips";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
@@ -36,11 +37,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Navbar />
           {children}
           <Footer />
+          <ButtonTooltips />
         </AuthSessionProvider>
       </body>
     </html>
   );
 }
+
 
 
 

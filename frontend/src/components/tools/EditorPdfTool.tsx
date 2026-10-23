@@ -24,6 +24,7 @@ import {
   type TextHitItem,
 } from "@/lib/pdf-editor";
 import PdfDropzone from "./PdfDropzone";
+import ProgressBar from "./ProgressBar";
 import ResultPanel from "./ResultPanel";
 
 const EDITOR_RENDER_SCALE = 1.4; // thumbnail resolution for the editing canvas only; the saved PDF stays vector
@@ -305,7 +306,7 @@ export default function EditorPdfTool() {
 
   return (
     <div className="space-y-6">
-      {status === "loading" && <p className="text-sm text-muted">Reading pages&hellip;</p>}
+      {status === "loading" && <ProgressBar label="Reading pages…" />}
 
       {(error || loadError) && (
         <div className="flex items-start gap-2 rounded-xl border border-accent/30 bg-accent-soft px-4 py-3 text-sm">
@@ -428,6 +429,7 @@ export default function EditorPdfTool() {
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
+                      aria-label="Bold text"
                       aria-pressed={selected.bold}
                       onClick={() => updateElement(selected.id, { bold: !selected.bold })}
                       className={`editor-toggle-btn ${selected.bold ? "is-active" : ""}`}
@@ -436,6 +438,7 @@ export default function EditorPdfTool() {
                     </button>
                     <button
                       type="button"
+                      aria-label="Italic text"
                       aria-pressed={selected.italic}
                       onClick={() => updateElement(selected.id, { italic: !selected.italic })}
                       className={`editor-toggle-btn ${selected.italic ? "is-active" : ""}`}
@@ -719,3 +722,4 @@ function ElementBox({
     </div>
   );
 }
+

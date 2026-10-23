@@ -144,6 +144,7 @@ export default function ChatWithPdfTool() {
         <button
           type="button"
           disabled={!input.trim() || asking}
+          aria-label="Send question"
           onClick={sendQuestion}
           className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-40"
         >
@@ -153,5 +154,6 @@ export default function ChatWithPdfTool() {
     </div>
   );
 }
+
 
 
