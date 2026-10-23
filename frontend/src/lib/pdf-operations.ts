@@ -234,3 +234,140 @@ export async function compressPdf(
 
   return toBlob(await out.save());
 }
+
+export type PageSizePreset = "A3" | "A4" | "A5" | "Letter" | "Legal" | "Tabloid";
+
+/** Point dimensions (portrait orientation) for each preset. */
+export const PAGE_SIZE_PRESETS: Record<PageSizePreset, { width: number; height: number; label: string }> = {
+  A3: { width: 841.89, height: 1190.55, label: "A3 (297 × 420 mm)" },
+  A4: { width: 595.28, height: 841.89, label: "A4 (210 × 297 mm)" },
+  A5: { width: 419.53, height: 595.28, label: "A5 (148 × 210 mm)" },
+  Letter: { width: 612, height: 792, label: "Letter (8.5 × 11 in)" },
+  Legal: { width: 612, height: 1008, label: "Legal (8.5 × 14 in)" },
+  Tabloid: { width: 792, height: 1224, label: "Tabloid (11 × 17 in)" },
+};
+
+export type PageScalingMode = "fit" | "stretch" | "actual";
+
+/**
+ * Rebuilds the PDF with every page resized to the given target dimensions.
+ * Each original page's content is embedded as a form XObject and redrawn
+ * onto a new, correctly-sized page — pdf-lib has no in-place "resize a
+ * page" operation, so this is the standard way to do it.
+ */
+export async function changePageSizes(
+  file: File,
+  targetWidth: number,
+  targetHeight: number,
+  mode: PageScalingMode,
+  matchOrientation = true,
+): Promise<Blob> {
+  const src = await loadPdfLibDoc(file);
+  const out = await PDFDocument.create();
+  const srcPages = src.getPages();
+
+  for (const srcPage of srcPages) {
+    const { width: ow, height: oh } = srcPage.getSize();
+    let targetW = targetWidth;
+    let targetH = targetHeight;
+    // Keep a landscape source page landscape, and portrait source page
+    // portrait, instead of forcing every page into the preset's default
+    // orientation (which would letterbox most landscape pages badly).
+    if (matchOrientation && (ow > oh) !== (targetWidth > targetHeight)) {
+      targetW = targetHeight;
+      targetH = targetWidth;
+    }
+
+    const embedded = await out.embedPage(srcPage);
+    const newPage = out.addPage([targetW, targetH]);
+
+    let scaleX: number;
+    let scaleY: number;
+    if (mode === "stretch") {
+      scaleX = targetW / ow;
+      scaleY = targetH / oh;
+    } else if (mode === "actual") {
+      scaleX = 1;
+      scaleY = 1;
+    } else {
+      const scale = Math.min(targetW / ow, targetH / oh);
+      scaleX = scale;
+      scaleY = scale;
+    }
+
+    const drawnW = ow * scaleX;
+    const drawnH = oh * scaleY;
+    newPage.drawPage(embedded, {
+      x: (targetW - drawnW) / 2,
+      y: (targetH - drawnH) / 2,
+      xScale: scaleX,
+      yScale: scaleY,
+    });
+  }
+
+  return toBlob(await out.save());
+}
+
+export interface PdfMetadata {
+  title: string;
+  author: string;
+  subject: string;
+  keywords: string;
+}
+
+/** Reads the document-info metadata currently stored in a PDF. */
+export async function readPdfMetadata(file: File): Promise<PdfMetadata> {
+  const doc = await loadPdfLibDoc(file);
+  return {
+    title: doc.getTitle() ?? "",
+    author: doc.getAuthor() ?? "",
+    subject: doc.getSubject() ?? "",
+    keywords: doc.getKeywords() ?? "",
+  };
+}
+
+/** Rewrites the document-info metadata and returns a new PDF with the change applied. */
+export async function writePdfMetadata(file: File, meta: PdfMetadata): Promise<Blob> {
+  const doc = await loadPdfLibDoc(file);
+  doc.setTitle(meta.title);
+  doc.setAuthor(meta.author);
+  doc.setSubject(meta.subject);
+  doc.setKeywords(
+    meta.keywords
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+  );
+  return toBlob(await doc.save());
+}
+
+export interface RepairResult {
+  name: string;
+  data: Uint8Array;
+  recoveredPages: number;
+}
+
+/**
+ * Best-effort repair: parses whatever objects/pages pdf-lib's lenient reader
+ * can recover from a damaged file, then rewrites a fresh, well-formed PDF
+ * from them. Files with no recoverable structure at all can't be fixed.
+ */
+export async function repairPdf(file: File): Promise<RepairResult> {
+  const bytes = await file.arrayBuffer();
+  let doc: PDFDocument;
+  try {
+    doc = await PDFDocument.load(bytes, {
+      ignoreEncryption: true,
+      throwOnInvalidObject: false,
+      updateMetadata: false,
+    });
+  } catch {
+    throw new Error(`"${file.name}" is too damaged to repair — no valid PDF structure could be found.`);
+  }
+  const recoveredPages = doc.getPageCount();
+  if (recoveredPages === 0) {
+    throw new Error(`"${file.name}" has no recoverable pages.`);
+  }
+  const rebuilt = await doc.save();
+  return { name: file.name, data: rebuilt, recoveredPages };
+}

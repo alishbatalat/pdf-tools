@@ -18,10 +18,13 @@ import {
   PenSquare,
   Presentation,
   RotateCw,
+  Ruler,
   ScanLine,
   ScanText,
   Scissors,
   Sparkles,
+  Tags,
+  Wrench,
 } from "lucide-react";
 
 export type ToolCategory = "organize" | "to-pdf" | "from-pdf" | "ai";
@@ -98,6 +101,27 @@ export const tools: Tool[] = [
     icon: Minimize2,
     category: "organize",
     href: "/tools/compress-pdf",
+  },
+  {
+    title: "Change Page Size",
+    description: "Resize every page to A4, A3, Letter, and more.",
+    icon: Ruler,
+    category: "organize",
+    href: "/tools/change-page-size",
+  },
+  {
+    title: "Edit PDF Info",
+    description: "Edit the title, author, subject, and keywords stored in a PDF.",
+    icon: Tags,
+    category: "organize",
+    href: "/tools/edit-pdf-info",
+  },
+  {
+    title: "Repair PDF",
+    description: "Fix corrupt or broken PDFs and recover as much content as possible.",
+    icon: Wrench,
+    category: "organize",
+    href: "/tools/repair-pdf",
   },
   {
     title: "Add Page Numbers",
