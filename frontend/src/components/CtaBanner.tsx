@@ -12,7 +12,7 @@ export default function CtaBanner() {
           Pick a tool, drop a file, done.
         </h2>
         <p className="mx-auto mt-3 max-w-md text-sm text-muted sm:text-base">
-          No sign-up, no watermark, no catch. Foldero does the fold so you
+          Free account, no watermark, no catch. Foldero does the fold so you
           don&apos;t have to.
         </p>
         <a

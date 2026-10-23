@@ -11,7 +11,7 @@ export function toolFaq(title: string, formats: string, browser: boolean) {
   return [
     {
       q: `Is ${title} free to use?`,
-      a: `Yes. ${title} is completely free, with no sign-up required and no watermark added to your file.`,
+      a: `Yes. ${title} is completely free, with no watermark added to your file. A free account is required to use it.`,
     },
     {
       q: `Is it safe to use ${lower} online?`,
@@ -25,7 +25,7 @@ export function toolFaq(title: string, formats: string, browser: boolean) {
     },
     {
       q: "Do I need to install anything?",
-      a: `No. ${title} works in any modern web browser — no software, extension, or account needed.`,
+      a: `No. ${title} works in any modern web browser — no software or extension needed, just a free account to sign in.`,
     },
   ];
 }

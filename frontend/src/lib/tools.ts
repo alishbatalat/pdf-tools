@@ -18,6 +18,7 @@ import {
   PenSquare,
   Presentation,
   RotateCw,
+  ScanLine,
   ScanText,
   Scissors,
   Sparkles,
@@ -125,6 +126,13 @@ export const tools: Tool[] = [
     icon: ImageIcon,
     category: "to-pdf",
     href: "/tools/image-to-pdf",
+  },
+  {
+    title: "Scan to PDF",
+    description: "Scan paper documents with your camera and save them as a PDF.",
+    icon: ScanLine,
+    category: "to-pdf",
+    href: "/tools/scan-to-pdf",
   },
   {
     title: "Word to PDF",

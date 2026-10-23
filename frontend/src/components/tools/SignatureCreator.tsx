@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Camera, Eraser, PenTool, Upload, X } from "lucide-react";
+import { describeCameraError, openCameraStream } from "@/lib/camera";
 import "@/app/signature.css";
 
 type Tab = "draw" | "upload" | "camera";
@@ -222,11 +223,12 @@ function CameraSignature({ onConfirm, active }: { onConfirm: (dataUrl: string, f
   useEffect(() => {
     if (!active) return;
     let cancelled = false;
-    setError("");
-    setReady(false);
-    navigator.mediaDevices
-      ?.getUserMedia({ video: { facingMode: "environment" } })
-      .then((stream) => {
+
+    async function run() {
+      setError("");
+      setReady(false);
+      try {
+        const stream = await openCameraStream();
         if (cancelled) {
           stream.getTracks().forEach((t) => t.stop());
           return;
@@ -237,10 +239,12 @@ function CameraSignature({ onConfirm, active }: { onConfirm: (dataUrl: string, f
           videoRef.current.play().catch(() => {});
         }
         setReady(true);
-      })
-      .catch(() => {
-        if (!cancelled) setError("Couldn't access your camera. Check your browser's camera permission for this site.");
-      });
+      } catch (err) {
+        if (!cancelled) setError(`Couldn't access your camera: ${describeCameraError(err)}`);
+      }
+    }
+
+    void run();
     return () => {
       cancelled = true;
       streamRef.current?.getTracks().forEach((t) => t.stop());
