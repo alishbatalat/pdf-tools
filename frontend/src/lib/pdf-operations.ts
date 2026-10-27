@@ -128,6 +128,50 @@ export async function imagesToPdf(files: File[]): Promise<Blob> {
   return toBlob(await doc.save());
 }
 
+export type AssembleItem =
+  | { kind: "pdf"; file: File; pageIndex: number; rotation: number }
+  | { kind: "image"; file: File; rotation: number }
+  | { kind: "blank"; rotation: number };
+
+/** Builds one PDF from pages mixed across source PDFs, images, and blank pages, in order. */
+export async function assemblePages(items: AssembleItem[]): Promise<Blob> {
+  const doc = await PDFDocument.create();
+  const sourceCache = new Map<File, PDFDocument>();
+
+  for (const item of items) {
+    if (item.kind === "pdf") {
+      let src = sourceCache.get(item.file);
+      if (!src) {
+        src = await loadPdfLibDoc(item.file);
+        sourceCache.set(item.file, src);
+      }
+      const [copied] = await doc.copyPages(src, [item.pageIndex]);
+      if (item.rotation) {
+        const current = copied.getRotation().angle;
+        copied.setRotation(degrees((current + item.rotation + 360) % 360));
+      }
+      doc.addPage(copied);
+    } else if (item.kind === "image") {
+      const bytes = await item.file.arrayBuffer();
+      const isPng = item.file.type === "image/png" || item.file.name.toLowerCase().endsWith(".png");
+      let image;
+      try {
+        image = isPng ? await doc.embedPng(bytes) : await doc.embedJpg(bytes);
+      } catch {
+        throw new Error(`"${item.file.name}" couldn't be read as an image.`);
+      }
+      const page = doc.addPage([image.width, image.height]);
+      page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+      if (item.rotation) page.setRotation(degrees(item.rotation % 360));
+    } else {
+      const page = doc.addPage([595.28, 841.89]);
+      if (item.rotation) page.setRotation(degrees(item.rotation % 360));
+    }
+  }
+
+  return toBlob(await doc.save());
+}
+
 export async function pdfPagesToImageBlobs(
   file: File,
   format: "png" | "jpeg",

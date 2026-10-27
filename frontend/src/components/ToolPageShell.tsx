@@ -1,8 +1,9 @@
 import { toolGuidance } from "@/lib/tool-guidance";
-import { toolFaq, toolSteps } from "@/lib/tool-faq";
+import { toolSteps } from "@/lib/tool-faq";
 import Link from "next/link";
-import { ArrowLeft, Infinity, ShieldCheck, type LucideIcon } from "lucide-react";
+import { ArrowLeft, Infinity, ShieldCheck, Star, type LucideIcon } from "lucide-react";
 import { categoryMeta, tools, toolsByCategory, type ToolCategory } from "@/lib/tools";
+import { getStatsForTarget } from "@/lib/reviews-db";
 import FavoriteButton from "./FavoriteButton";
 
 export default function ToolPageShell({
@@ -22,8 +23,8 @@ export default function ToolPageShell({
   const meta = categoryMeta[category];
   const related = toolsByCategory(category).filter((t) => t.title !== title);
   const steps = toolSteps(title, guidance.note);
-  const faq = toolFaq(title, guidance.formats, guidance.browser);
   const href = tools.find((t) => t.title === title)?.href ?? `/tools/${category}`;
+  const ratingStats = getStatsForTarget(href);
 
   return (
     <div className="tool-workspace mx-auto max-w-4xl px-6 py-8">
@@ -36,7 +37,7 @@ export default function ToolPageShell({
       </Link>
 
       <div className="mt-6 flex items-start gap-4">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+        <span className={`tool-heading-icon tool-category-${category}`} aria-hidden="true">
 
           <Icon size={22} strokeWidth={2.1} />
         </span>
@@ -61,6 +62,23 @@ export default function ToolPageShell({
       <aside className="tool-guidance" aria-label="Before you begin"><div><span>{guidance.processing}</span><span>{guidance.formats}</span></div><p>{guidance.note}</p>{!guidance.browser && <p>Your file or extracted text is sent to the configured document server. <Link href="/privacy">Processing details</Link></p>}</aside>
       <div className="tool-body">{children}</div>
 
+      <div className="mt-4 flex justify-center">
+        <Link
+          href={`/reviews?target=${encodeURIComponent(href)}`}
+          className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
+        >
+          <Star size={15} className="text-amber-400" fill={ratingStats.count > 0 ? "currentColor" : "none"} />
+          {ratingStats.count > 0 ? (
+            <>
+              <strong className="font-semibold text-foreground">{ratingStats.average.toFixed(1)}</strong>
+              <span>({ratingStats.count} {ratingStats.count === 1 ? "vote" : "votes"})</span>
+            </>
+          ) : (
+            <span>Not yet rated &mdash; be the first to review</span>
+          )}
+        </Link>
+      </div>
+
       <div className="tool-howto">
         <h2>How to use {title}</h2>
         <ol>
@@ -68,18 +86,6 @@ export default function ToolPageShell({
             <li key={i}>{step}</li>
           ))}
         </ol>
-      </div>
-
-      <div className="tool-faq">
-        <h2>Common questions</h2>
-        <div className="faq-list">
-          {faq.map(({ q, a }) => (
-            <details key={q}>
-              <summary>{q}</summary>
-              <p>{a}</p>
-            </details>
-          ))}
-        </div>
       </div>
 
       {related.length > 0 && (

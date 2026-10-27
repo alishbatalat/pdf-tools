@@ -67,3 +67,6 @@ body{background:var(--background);color:var(--foreground)}::selection{background
 .thumb-hover-overlay{z-index:2;pointer-events:none;transition:none;background:#0c14275e;padding:12px;gap:7px}
 .thumb-chip{font-size:11px;line-height:1.5;text-align:center;max-width:100%;overflow-wrap:anywhere}
 .queue-row:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.assemble-tool-btn{display:flex;height:34px;width:34px;align-items:center;justify-content:center;border-radius:8px;color:var(--foreground);cursor:pointer}
+.assemble-tool-btn:hover:not(:disabled){background:var(--surface-muted)}
+.assemble-tool-btn:disabled{opacity:.3;cursor:not-allowed}

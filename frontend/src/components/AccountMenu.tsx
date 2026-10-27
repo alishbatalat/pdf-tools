@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
-import { History, LogOut } from "lucide-react";
+import { History, LogOut, Star } from "lucide-react";
 
 export default function AccountMenu() {
   const { data: session, status } = useSession();
@@ -49,6 +49,10 @@ export default function AccountMenu() {
           <Link href="/history" onClick={() => setOpen(false)}>
             <History size={15} />
             My activity
+          </Link>
+          <Link href="/reviews" onClick={() => setOpen(false)}>
+            <Star size={15} />
+            Reviews &amp; ratings
           </Link>
           <button type="button" onClick={() => signOut()}>
             <LogOut size={15} />

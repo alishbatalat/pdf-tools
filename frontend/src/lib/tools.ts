@@ -1,4 +1,5 @@
 import {
+  Combine,
   Crop,
   FileMinus,
   FileOutput,
@@ -59,6 +60,13 @@ export const tools: Tool[] = [
     icon: FileStack,
     category: "organize",
     href: "/tools/merge-pdf",
+  },
+  {
+    title: "Assemble PDF",
+    description: "Arrange pages from several PDFs and images in one workspace, then save as one file.",
+    icon: Combine,
+    category: "organize",
+    href: "/tools/assemble-pdf",
   },
   {
     title: "Split PDF",
@@ -192,6 +200,13 @@ export const tools: Tool[] = [
     icon: ImageIcon,
     category: "from-pdf",
     href: "/tools/pdf-to-image",
+  },
+  {
+    title: "PDF to PNG",
+    description: "Turn each PDF page into a separate PNG image, at the resolution you choose.",
+    icon: ImageIcon,
+    category: "from-pdf",
+    href: "/tools/pdf-to-png",
   },
   {
     title: "PDF to Word",

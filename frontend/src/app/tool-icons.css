@@ -1,14 +1,13 @@
-/* Shared category accents and compact, outlined icon tiles. */
-.tool-category-organize,.workflow-icon-01{--icon-ink:#315dc1;--icon-fill:#edf2fe;--icon-line:#d5e0fa}
-.tool-category-to-pdf,.workflow-icon-02{--icon-ink:#207769;--icon-fill:#e9f5f0;--icon-line:#cbe6dd}
-.tool-category-from-pdf{--icon-ink:#a36b23;--icon-fill:#fcf3e6;--icon-line:#f0dfc2}
-.tool-category-ai,.workflow-icon-03{--icon-ink:#7753ad;--icon-fill:#f2edfa;--icon-line:#e0d5f2}
-:root[data-theme=dark] .tool-category-organize,:root[data-theme=dark] .workflow-icon-01{--icon-ink:#9ab9ff;--icon-fill:#202e48;--icon-line:#34486b}
-:root[data-theme=dark] .tool-category-to-pdf,:root[data-theme=dark] .workflow-icon-02{--icon-ink:#85d5bf;--icon-fill:#1c3532;--icon-line:#30534b}
-:root[data-theme=dark] .tool-category-from-pdf{--icon-ink:#e4be83;--icon-fill:#382e21;--icon-line:#58452f}
-:root[data-theme=dark] .tool-category-ai,:root[data-theme=dark] .workflow-icon-03{--icon-ink:#c4a6ee;--icon-fill:#30273e;--icon-line:#4e3e66}
+/* Sculpted pastel icon tiles, inspired by the reference. */
+.tool-category-organize,.workflow-icon-01{--icon-ink:#253d68;--icon-top:#d6e4ff;--icon-fill:#a9c4ff;--icon-edge:#7998d6;--icon-shadow:#506caa}
+.tool-category-to-pdf,.workflow-icon-02{--icon-ink:#534032;--icon-top:#ffe0c6;--icon-fill:#efbb95;--icon-edge:#ce9876;--icon-shadow:#9b7259}
+.tool-category-from-pdf{--icon-ink:#28485e;--icon-top:#d6ecff;--icon-fill:#accde8;--icon-edge:#80a4c4;--icon-shadow:#5d7f9d}
+.tool-category-ai,.workflow-icon-03{--icon-ink:#493568;--icon-top:#eadfff;--icon-fill:#c9b1ee;--icon-edge:#a38acb;--icon-shadow:#79639f}
 .full-directory .tool-card{grid-template-columns:48px 1fr;column-gap:16px}
-.tool-card .tool-icon,.workflow-item .category-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;border-radius:12px;border:1px solid var(--icon-line);background:var(--icon-fill);color:var(--icon-ink);box-shadow:inset 0 1px 0 #ffffff14}
-.tool-card .tool-icon svg,.workflow-item .category-icon svg{display:block;color:inherit}
+.tool-card .tool-icon,.workflow-item .category-icon,.tool-heading-icon{position:relative;isolation:isolate;width:48px;height:48px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;border-radius:14px;border:1px solid var(--icon-edge);background:linear-gradient(145deg,var(--icon-top),var(--icon-fill));color:var(--icon-ink);transform:rotate(-7deg);box-shadow:inset 0 2px 1px #ffffffa6,inset 0 -2px 1px #0000000d,1px 3px 0 var(--icon-edge),2px 5px 0 var(--icon-shadow),3px 8px 12px #15203924;transition:transform .22s ease,box-shadow .22s ease}
+.tool-card .tool-icon::before,.workflow-item .category-icon::before,.tool-heading-icon::before{content:"";position:absolute;inset:3px;border:1px solid #ffffff40;border-radius:10px;pointer-events:none}
+.tool-card .tool-icon svg,.workflow-item .category-icon svg,.tool-heading-icon svg{display:block;color:inherit;filter:drop-shadow(0 1px 0 #ffffff75);transform:rotate(7deg)}
+.tool-card:hover .tool-icon,.tool-card:focus-visible .tool-icon,.workflow-item:hover .category-icon{transform:translateY(-3px) rotate(-3deg);box-shadow:inset 0 2px 1px #ffffffa6,inset 0 -2px 1px #0000000d,1px 3px 0 var(--icon-edge),2px 5px 0 var(--icon-shadow),4px 11px 16px #15203930}
 .workflow-item>div>.category-icon{font-family:inherit;font-size:inherit}
+@media(prefers-reduced-motion:reduce){.tool-card .tool-icon,.workflow-item .category-icon,.tool-heading-icon{transition:none}.tool-card:hover .tool-icon,.tool-card:focus-visible .tool-icon,.workflow-item:hover .category-icon{transform:rotate(-7deg)}}
 @media(max-width:700px){.workflow-item{grid-template-columns:48px 1fr 18px}.workflow-item>div>.category-icon{display:flex}.workflow-item>div>span:not(.category-icon){display:none}}
