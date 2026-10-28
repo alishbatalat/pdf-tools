@@ -65,7 +65,7 @@ export default function ToolPageShell({
       <div className="mt-4 flex justify-center">
         <Link
           href={`/reviews?target=${encodeURIComponent(href)}`}
-          className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
+          className="group inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-muted transition-colors hover:border-border hover:bg-surface hover:text-foreground"
         >
           <Star size={15} className="text-amber-400" fill={ratingStats.count > 0 ? "currentColor" : "none"} />
           {ratingStats.count > 0 ? (
@@ -74,7 +74,12 @@ export default function ToolPageShell({
               <span>({ratingStats.count} {ratingStats.count === 1 ? "vote" : "votes"})</span>
             </>
           ) : (
-            <span>Not yet rated &mdash; be the first to review</span>
+            <span>
+              Not yet rated &mdash;{" "}
+              <span className="underline underline-offset-2 group-hover:text-primary">
+                be the first to review
+              </span>
+            </span>
           )}
         </Link>
       </div>
